@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11-sinf Psixologik Test</title>
+<style>
+body{font-family:Arial; background:#f2f2f2; margin:0; padding:0;}
+.container{max-width:1000px; margin:0 auto; padding:20px;}
+h1{text-align:center; color:#0d47a1;}
+.card{background:#fff; border-radius:15px; padding:20px; margin:15px 0; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+.question{margin:10px 0; padding:15px; border:1px solid #ddd; border-radius:12px;}
+.options label{display:block; margin:6px 0;}
+.btn{background:#0d47a1; color:white; padding:15px 35px; border:none; border-radius:30px; font-size:18px; cursor:pointer;}
+btn-close{background:#d32f2f; color:white; padding:10px 25px; border:none; border-radius:20px; cursor:pointer;}
+#modalBg{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000;}
+#modalBox{display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; width:90%; max-width:600px; border-radius:20px; padding:25px; z-index:1001;}
+#publicResult{display:none; max-width:900px; margin:30px auto; background:#e8f5e9; border-left:6px solid #2e7d32; padding:20px; border-radius:15px;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📘 11-sinf Psixologik Test</h1>
+
+<div id="questions"></div>
+
+<div style="text-align:center;">
+  <button class="btn" onclick="yakunlash()">🧾 YAKUNLASH</button>
+</div>
+
+<div id="modalBg"></div>
+<div id="modalBox">
+  <h3 style="text-align:center; color:#0d47a1;">🧠 Psixologik tavsif</h3>
+  <p id="modalText"></p>
+  <div style="text-align:center; margin-top:20px;">
+    <button class="btn-close" onclick="closeModal()">Yopish</button>
+  </div>
+</div>
+
+<div id="publicResult">
+  <h3>📢 Ochiq psixologik xulosa</h3>
+  <p id="resultText"></p>
+</div>
+
+</div>
+
+<script>
+const questions = [
+"1) O‘qishga jiddiy qarayman va kelajak rejam bor.",
+"2) Do‘stlar bilan yaxshi munosabatdaman.",
+"3) Stressli vaziyatlarni boshqara olaman.",
+"4) O‘qituvchilarga hurmat qilaman.",
+"5) Uy vazifasini vaqtida qilaman.",
+"6) Jamoada faol qatnashaman.",
+"7) O‘z his-tuyg‘ularimni nazorat qila olaman.",
+"8) Maktabdagi mashg‘ulotlar meni qiziqtiradi.",
+"9) O‘zimga ishonchim bor.",
+"10) Do‘stlarim meni hurmat qiladi.",
+"11) Savol berishdan uyalmayman.",
+"12) O‘qishda yordam so‘rashdan tortinmayman.",
+"13) Maktabni yaxshi ko‘raman.",
+"14) Oila bilan yaxshi munosabatdaman.",
+"15) Kelajakdan umidvorman.",
+"16) O‘z xatolarimni tan olishdan uyalmayman.",
+"17) Stressni boshqarishim yaxshi.",
+"18) Sinfdoshlar bilan urush kam bo‘ladi.",
+"19) Maktabga xursand bo‘lib boraman.",
+"20) Hayotdan qoniqaman."
+];
+
+function loadTest(){
+  const qDiv = document.getElementById("questions");
+  qDiv.innerHTML = "";
+  for(let i=0; i<questions.length; i++){
+    qDiv.innerHTML += `
+      <div class="question">
+        <h3>${questions[i]}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${i}" value="2"> Juda to‘g‘ri</label>
+          <label><input type="radio" name="q${i}" value="1"> Ba’zan to‘g‘ri</label>
+          <label><input type="radio" name="q${i}" value="0"> Hech to‘g‘ri emas</label>
+        </div>
+      </div>
+    `;
+  }
+}
+loadTest();
+
+function yakunlash(){
+  let score = 0;
+  for(let i=0; i<questions.length; i++){
+    const radios = document.getElementsByName("q"+i);
+    for(let r of radios){
+      if(r.checked){
+        score += parseInt(r.value);
+      }
+    }
+  }
+
+  let text = "";
+  if(score >= 30) text = "Sizning ruhiy holatingiz barqaror va ijtimoiy moslashuvingiz yaxshi.";
+  else if(score >= 15) text = "Sizda ba’zi stress va xavotir belgilari bor. Oila va do‘stlar bilan suhbat foydali bo‘ladi.";
+  else text = "Sizga psixologik yordam va qo‘llab-quvvatlash zarur bo‘lishi mumkin. Maktab psixologi bilan suhbat tavsiya etiladi.";
+
+  document.getElementById("modalText").innerText = text;
+  document.getElementById("resultText").innerText = text;
+
+  document.getElementById("modalBg").style.display="block";
+  document.getElementById("modalBox").style.display="block";
+  document.getElementById("publicResult").style.display="block";
+}
+
+function closeModal(){
+  document.getElementById("modalBg").style.display="none";
+  document.getElementById("modalBox").style.display="none";
+}
+</script>
+</body>
+</html>
