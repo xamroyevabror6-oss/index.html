@@ -50,89 +50,75 @@ label{display:block;margin:6px 0}
 <script>
 // v: "i"=Ijodiy, "t"=Texnik, "j"=Ijtimoiy
 const tests = {
-  6: [
-    {q:"1. Siz ishni qanday rejalaysiz?", a:[
-      {t:"Ilhom kelganda",v:"i"},
-      {t:"Aniq reja asosida",v:"t"},
-      {t:"Boshqalar bilan kelishib",v:"j"}
-    ]},
-    {q:"2. Qaysi ishni charchamay bajarasiz?", a:[
-      {t:"Ijodiy ishlarni",v:"i"},
-      {t:"Texnik topshiriqlarni",v:"t"},
-      {t:"Odamlar bilan ishlashni",v:"j"}
-    ]},
-    {q:"3. Sizning kuchli tomoningiz qaysi?", a:[
-      {t:"Tasavvur va estetik did",v:"i"},
-      {t:"Aniqlik va mantiq",v:"t"},
-      {t:"Muomala va tushuntirish",v:"j"}
-    ]},
-    {q:"4. Qaysi vazifa Sizga osonroq?", a:[
-      {t:"Yangi g‘oya topish",v:"i"},
-      {t:"Muammoni texnik hal qilish",v:"t"},
-      {t:"Boshqalarga yordam berish",v:"j"}
-    ]},
-    {q:"5. Siz kelajakda qanday ishni xohlaysiz?", a:[
-      {t:"Ijodiy kasbni",v:"i"},
-      {t:"Texnik kasbni",v:"t"},
-      {t:"Ijtimoiy kasbni",v:"j"}
-    ]}
-  ],
+ 
+   6: [
+{q:"Siz yangi narsalarni o‘rganishni yoqtirasizmi?", a:["Ha, doimo qiziqaman","Ba’zan qiziqaman","Yo‘q, ko‘proq o‘yin qilaman"]},
+{q:"Do‘stlaringiz bilan nima qilganni yoqtirasiz?", a:["Ularni o‘rgataman yoki maslahat beraman","Kitob o‘qiymiz yoki hikoya qilamiz","O‘yin va sport bilan band bo‘lamiz"]},
+{q:"Sizni nima xursand qiladi?", a:["Yangi bilim olish","O‘zingiz hikoya yozish","Yutuq yoki sovrin"]},
+{q:"O‘z vaqtida ishni tugatishni yoqtirasizmi?", a:["Ha, doim reja bo‘yicha","Ba’zan","Yo‘q"]},
+{q:"Siz qaysi turdagi o‘yinlarni yoqtirasiz?", a:["Strategik va mantiqiy","Ijodiy","Faol va sport"]},
+{q:"Qanday kitobni o‘qishni yoqtirasiz?", a:["Fan va bilim kitoblari","Hikoya va ertaklar","Sport va faoliyat kitoblari"]},
+{q:"Do‘stlaringiz sizni qanday deb biladi?", a:["Yordamchi va aqlli","Ijodkor va tasavvurli","Faol va jasur"]},
+{q:"Siz stressga qanday qaraysiz?", a:["Tinchlanib yechim izlayman","Ijod bilan band bo‘laman","Jismoniy faoliyat bilan"]},
+{q:"Sizga eng yoqadigan fan?", a:["Matematika","Ona tili va adabiyot","Jismoniy tarbiya"]},
+{q:"Sizning sevimli mashg‘ulotingiz?", a:["O‘rganish va o‘qish","Rassomlik va yozish","Sport va o‘yin"]},
+{q:"Siz qanday ishlarni yoqtirasiz?", a:["Yangi narsani o‘rganish","Ijodiy ishlash","Harakat va sport"]},
+{q:"Siz ko‘proq qaysi turdagi ishlarni afzal ko‘rasiz?", a:["Tahlil va mantiqiy","Tasavvur va ijod","Faol va jasoratli"]},
+{q:"Sizni nima motivatsiya qiladi?", a:["Bilim va muvaffaqiyat","Yaratish va hikoya","Harakat va raqobat"]},
+{q:"Siz o‘z vaqtida ishni rejalashtirasizmi?", a:["Ha, tartibli","Ba’zan","Yo‘q"]},
+{q:"Do‘stlaringizga yordam berasizmi?", a:["Ha, maslahat beraman","Ba’zan","Yo‘q"]},
+{q:"Siz yangi loyihaga qo‘shilasizmi?", a:["Ha, o‘rganish uchun","Ijodiy qism uchun","Faol bo‘lish uchun"]},
+{q:"Sizni nima xafa qiladi?", a:["Bilimsizlik","Ijodsizlik","Harakatsizlik"]},
+{q:"Siz qanday faoliyatni yoqtirasiz?", a:["O‘rganish va o‘qish","Yaratish va tasviriy","Sport va faoliyat"]},
+{q:"Siz ko‘proq qaysi turdagi ishlarni yaxshi ko‘rasiz?", a:["Tahliliy","Ijodiy","Faol"]},
+{q:"Sizni qaysi ishlar xursand qiladi?", a:["Yangi bilim","Yangi hikoya","Yutuq va sovrin"]}
+],
+7: [
+{q:"Sizni qaysi fan qiziqtiradi?", a:["Matematika va fan","Adabiyot va san’at","Jismoniy tarbiya"]},
+{q:"Siz muammolarni qanday hal qilasiz?", a:["Tahlil qilib","Ijodiy yechim topib","Amaliy harakat bilan"]},
+{q:"Sizni qaysi ish motivatsiya qiladi?", a:["Yangi bilim","Yaratish","Raqobat va faoliyat"]},
+{q:"Do‘stlaringiz bilan nima qilganni yoqtirasiz?", a:["Maslahat berish","Hikoya yoki yozish","O‘yin va sport"]},
+{q:"Sizni nima xursand qiladi?", a:["Yutuq yoki bilim","Ijodiy natija","Sport va g‘alaba"]},
+{q:"Siz qaysi turdagi kitobni yoqtirasiz?", a:["Fan kitoblari","Hikoya va adabiyot","Sport kitoblari"]},
+{q:"Siz yangi narsalarni o‘rganishni yoqtirasizmi?", a:["Ha","Ba’zan","Yo‘q"]},
+{q:"Stressga qanday qaraysiz?", a:["Tinchlanib","Ijod bilan","Harakat bilan"]},
+{q:"Siz o‘z vaqtida ishni tugatishni yoqtirasizmi?", a:["Ha","Ba’zan","Yo‘q"]},
+{q:"Do‘stlaringiz sizni qanday deb biladi?", a:["Aqlli va yordamchi","Ijodkor","Faol va jasur"]},
+{q:"Siz ko‘proq qaysi ishlarni afzal ko‘rasiz?", a:["Tahliliy","Ijodiy","Faol"]},
+{q:"Sizni nima xafa qiladi?", a:["Bilimsizlik","Ijodsizlik","Harakatsizlik"]},
+{q:"Sizni nima motivatsiya qiladi?", a:["Bilim","Yaratish","Harakat"]},
+{q:"Siz yangi loyihaga qo‘shilasizmi?", a:["Ha, o‘rganish uchun","Ijodiy qism uchun","Faol bo‘lish uchun"]},
+{q:"Siz o‘z vaqtida ishni rejalashtirasizmi?", a:["Ha, tartibli","Ba’zan","Yo‘q"]},
+{q:"Siz o‘zingizni qanday his qilasiz?", a:["Tinch va o‘ylovchi","Tasavvurli","Faol"]},
+{q:"Siz qaysi turdagi ishlarni yoqtirasiz?", a:["Mantiqiy","Ijodiy","Faol"]},
+{q:"Sizni qaysi ishlar xursand qiladi?", a:["Yangi bilim","Yangi hikoya","Yutuq va sovrin"]},
+{q:"Do‘stlaringiz bilan qanday munosabatda bo‘lasiz?", a:["Yordamchi","Hamroh","Hamkor sportchi"]},
+{q:"Siz ko‘proq qaysi turdagi o‘yinlarni yoqtirasiz?", a:["Strategik","Ijodiy","Faol"]}
+],
+8: [
+{q:"Siz yangi bilim olishni yoqtirasizmi?", a:["Ha, doimo","Ba’zan","Yo‘q"]},
+{q:"Siz muammolarni qanday hal qilasiz?", a:["Tahlil qilib","Ijodiy yechim","Amaliy harakat bilan"]},
+{q:"Sizni qaysi ish motivatsiya qiladi?", a:["Bilim va muvaffaqiyat","Yaratish","Raqobat va g‘alaba"]},
+{q:"Do‘stlar bilan nima qilganni yoqtirasiz?", a:["Maslahat va o‘rgatish","Hikoya va ijod","Sport va o‘yin"]},
+{q:"Sizni nima xursand qiladi?", a:["Yutuq bilim","Ijodiy natija","Sport yutug‘i"]},
+{q:"Qaysi kitob sizga yoqadi?", a:["Fan kitoblari","Adabiyot","Sport kitoblari"]},
+{q:"Siz stressga qanday qaraysiz?", a:["Tinchlanib","Ijod bilan band","Harakat bilan"]},
+{q:"O‘z vaqtida ishni tugatishni yoqtirasizmi?", a:["Ha","Ba’zan","Yo‘q"]},
+{q:"Do‘stlar sizni qanday deb biladi?", a:["Aqlli","Ijodkor","Faol"]},
+{q:"Siz ko‘proq qaysi ishlarni afzal ko‘rasiz?", a:["Tahliliy","Ijodiy","Faol"]},
+{q:"Sizni nima xafa qiladi?", a:["Bilimsizlik","Ijodsizlik","Harakatsizlik"]},
+{q:"Sizni nima motivatsiya qiladi?", a:["Bilim","Yaratish","Harakat"]},
+{q:"Siz yangi loyihaga qo‘shilasizmi?", a:["Ha, o‘rganish uchun","Ijodiy qism uchun","Faol bo‘lish uchun"]},
+{q:"Siz o‘z vaqtida ishni rejalashtirasizmi?", a:["Ha","Ba’zan","Yo‘q"]},
+{q:"Siz o‘zingizni qanday his qilasiz?", a:["Tinch","Tasavvurli","Faol"]},
+{q:"Siz qaysi turdagi ishlarni yoqtirasiz?", a:["Mantiqiy","Ijodiy","Faol"]},
+{q:"Sizni qaysi ishlar xursand qiladi?", a:["Yangi bilim","Yangi hikoya","Yutuq va sovrin"]},
+{q:"Do‘stlar bilan qanday munosabatdasiz?", a:["Yordamchi","Hamroh","Hamkor sportchi"]},
+{q:"Siz ko‘proq qaysi turdagi o‘yinlarni yoqtirasiz?", a:["Strategik","Ijodiy","Faol"]},
+{q:"Sizni eng ko‘p nima hayajonlantiradi?", a:["Yangi bilim","Yaratish","Yutuq"]}
+]
+};
 
-  7: [
-    {q:"1. Bo‘sh vaqtingizda nima bilan ko‘proq shug‘ullanasiz?", a:[
-      {t:"Video montaj/rasm",v:"i"},
-      {t:"Kompyuter o‘ynash/sozlash",v:"t"},
-      {t:"Do‘stlar bilan suhbat",v:"j"}
-    ]},
-    {q:"2. Qaysi fan sizga ko‘proq yoqadi?", a:[
-      {t:"Adabiyot/ San’at",v:"i"},
-      {t:"Matematika/ Fizika",v:"t"},
-      {t:"Tarix/ Jamiyat",v:"j"}
-    ]},
-    {q:"3. Jamoada siz odatda nima qilasiz?", a:[
-      {t:"G‘oya beraman",v:"i"},
-      {t:"Reja tuzaman",v:"t"},
-      {t:"Barchani birlashtiraman",v:"j"}
-    ]},
-    {q:"4. Sizni nima ko‘proq qiziqtiradi?", a:[
-      {t:"Dizayn va estetik",v:"i"},
-      {t:"Robototexnika/ Mexanika",v:"t"},
-      {t:"Inson psixologiyasi",v:"j"}
-    ]},
-    {q:"5. Qaysi ish sizga osonroq?", a:[
-      {t:"Yangi g‘oya topish",v:"i"},
-      {t:"Hisob-kitob qilish",v:"t"},
-      {t:"Tushuntirish",v:"j"}
-    ]}
-  ],
-
-  8: [
-    {q:"1. Qaysi ish sizni ko‘proq qoniqtiradi?", a:[
-      {t:"Ijodiy natija",v:"i"},
-      {t:"Mukammal ishlaydigan tizim",v:"t"},
-      {t:"Odamlarning minnatdorchiligi",v:"j"}
-    ]},
-    {q:"2. Siz ishni qanday muhitda bajarishni xohlaysiz?", a:[
-      {t:"Erkin va mustaqil",v:"i"},
-      {t:"Aniq qoidalar bilan",v:"t"},
-      {t:"Jamoa bilan",v:"j"}
-    ]},
-    {q:"3. Siz qaysi vaziyatda o‘zingizni ishonchli his qilasiz?", a:[
-      {t:"Ijodiy topshiriqda",v:"i"},
-      {t:"Texnik muammolarni hal qilganda",v:"t"},
-      {t:"Odamlar bilan muloqotda",v:"j"}
-    ]},
-    {q:"4. Sizga qaysi kasb mosroq deb o‘ylaysiz?", a:[
-      {t:"Dizayner yoki animator",v:"i"},
-      {t:"Dasturchi yoki muhandis",v:"t"},
-      {t:"O‘qituvchi yoki psixolog",v:"j"}
-    ]},
-    {q:"5. Qaysi soha Sizga yaqin?", a:[
-      {t:"San’at va dizayn",v:"i"},
-      {t:"IT va muhandislik",v:"t"},
-      {t:"Ta’lim va xizmat ko‘rsatish",v:"j"}
-    ]}
-  ],
 
   9: [
     {q:"1. Bo‘sh vaqtingizda nima bilan ko‘proq shug‘ullanasiz?", a:[{t:"Video montaj/rasm",v:"i"},{t:"Kompyuter o‘ynash/sozlash",v:"t"},{t:"Do‘stlar bilan suhbat",v:"j"}]},
