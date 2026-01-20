@@ -3,121 +3,242 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Psixologik testlar</title>
+<title>Kasb-hunar testi</title>
 
 <style>
-*{ box-sizing:border-box; }
-
-body{
-    margin:0;
-    min-height:100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    background:#eef3f8;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:15px;
-}
-
-.container{
-    background:#ffffff;
-    padding:25px;
-    border-radius:12px;
-    max-width:600px;
-    width:100%;
-    border:1px solid #dce3ec;
-}
-
-h1{
-    color:#1a3d7c;
-    text-align:center;
-    margin-bottom:15px;
-    font-size:24px;
-}
-
-p{
-    font-size:16px;
-    color:#222;
-    line-height:1.6;
-    text-align:center;
-}
-
-button{
-    display:block;
-    width:100%;
-    margin:10px 0;
-    padding:14px;
-    font-size:16px;
-    background:#1a73e8;
-    color:white;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-}
-button:active{
-    transform:scale(0.98);
-}
-
-#classes{
-    display:none;
-}
-
-.footer{
-    margin-top:20px;
-    text-align:center;
-    font-size:14px;
-    color:#555;
-}
-
-/* 📱 Telefon uchun maxsus */
-@media (max-width:480px){
-    h1{ font-size:20px; }
-    p{ font-size:15px; }
-    button{ font-size:15px; padding:13px; }
-}
+body{font-family:Arial;background:#f3f4f6;padding:15px}
+h2,h3{text-align:center}
+.box{background:#fff;padding:18px;border-radius:12px;margin-bottom:15px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+button{padding:12px 20px;margin:6px;border:none;border-radius:8px;background:#2563eb;color:#fff;font-size:16px;cursor:pointer}
+button:hover{background:#1e40af}
+label{display:block;margin:6px 0}
+.hidden{display:none}
+.author{text-align:center;font-size:14px;color:#555;margin-top:15px}
 </style>
 </head>
 
 <body>
-<div id="result" class="result-box"></div>
 
-<div class="container">
-
-    <div id="start">
-        <h1>Psixologik testlar</h1>
-        <p>
-            Ushbu testlar <b>34-maktab o‘quvchisi Xamroyev Abror</b>
-            tomonidan tayyorlangan.
-        </p>
-        <p>
-            Testlar <b>6–11-sinf</b> o‘quvchilari uchun mo‘ljallangan.
-        </p>
-        <button onclick="showClasses()">Boshlash</button>
-    </div>
-
-    <div id="classes">
-        <h1>Sinfni tanlang</h1>
-        <button onclick="go('6.html')">6-sinf</button>
-        <button onclick="go('7.html')">7-sinf</button>
-        <button onclick="go('8.html')">8-sinf</button>
-        <button onclick="go('9.html')">9-sinf</button>
-        <button onclick="go('10.html')">10-sinf</button>
-        <button onclick="go('11.html')">11-sinf</button>
-    </div>
-
-    <div class="footer">
-        Muallif: Xamroyev Abror
-    </div>
-
+<div id="start" class="box">
+  <h2>Kasb-hunarga yo‘naltiruvchi test</h2>
+  <p style="text-align:center">
+    Ushbu test o‘quvchilarning qiziqishi va kelajak kasbini aniqlashga yordam beradi.
+  </p>
+  <div style="text-align:center">
+    <button onclick="goMenu()">Boshlash</button>
+  </div>
+  <div class="author">
+    Bu savol-javob testlarni <b>34-maktab o‘quvchisi Xamroyev Abror</b> tayyorlagan
+  </div>
 </div>
 
+<div id="menu" class="box hidden">
+  <h3>Sinfni tanlang</h3>
+  <div style="text-align:center">
+    <button onclick="startTest(6)">6-sinf</button>
+    <button onclick="startTest(7)">7-sinf</button>
+    <button onclick="startTest(8)">8-sinf</button>
+    <button onclick="startTest(9)">9-sinf</button>
+    <button onclick="startTest(10)">10-sinf</button>
+    <button onclick="startTest(11)">11-sinf</button>
+  </div>
+</div>
+
+<div id="test" class="hidden"></div>
+<div id="result" class="box hidden"></div>
+
 <script>
-function showClasses(){
-    document.getElementById("start").style.display="none";
-    document.getElementById("classes").style.display="block";
+// v: "i"=Ijodiy, "t"=Texnik, "j"=Ijtimoiy
+const tests = {
+  6: [
+    {q:"1. Siz ishni qanday rejalaysiz?", a:[
+      {t:"Ilhom kelganda",v:"i"},
+      {t:"Aniq reja asosida",v:"t"},
+      {t:"Boshqalar bilan kelishib",v:"j"}
+    ]},
+    {q:"2. Qaysi ishni charchamay bajarasiz?", a:[
+      {t:"Ijodiy ishlarni",v:"i"},
+      {t:"Texnik topshiriqlarni",v:"t"},
+      {t:"Odamlar bilan ishlashni",v:"j"}
+    ]},
+    {q:"3. Sizning kuchli tomoningiz qaysi?", a:[
+      {t:"Tasavvur va estetik did",v:"i"},
+      {t:"Aniqlik va mantiq",v:"t"},
+      {t:"Muomala va tushuntirish",v:"j"}
+    ]},
+    {q:"4. Qaysi vazifa Sizga osonroq?", a:[
+      {t:"Yangi g‘oya topish",v:"i"},
+      {t:"Muammoni texnik hal qilish",v:"t"},
+      {t:"Boshqalarga yordam berish",v:"j"}
+    ]},
+    {q:"5. Siz kelajakda qanday ishni xohlaysiz?", a:[
+      {t:"Ijodiy kasbni",v:"i"},
+      {t:"Texnik kasbni",v:"t"},
+      {t:"Ijtimoiy kasbni",v:"j"}
+    ]}
+  ],
+
+  7: [
+    {q:"1. Bo‘sh vaqtingizda nima bilan ko‘proq shug‘ullanasiz?", a:[
+      {t:"Video montaj/rasm",v:"i"},
+      {t:"Kompyuter o‘ynash/sozlash",v:"t"},
+      {t:"Do‘stlar bilan suhbat",v:"j"}
+    ]},
+    {q:"2. Qaysi fan sizga ko‘proq yoqadi?", a:[
+      {t:"Adabiyot/ San’at",v:"i"},
+      {t:"Matematika/ Fizika",v:"t"},
+      {t:"Tarix/ Jamiyat",v:"j"}
+    ]},
+    {q:"3. Jamoada siz odatda nima qilasiz?", a:[
+      {t:"G‘oya beraman",v:"i"},
+      {t:"Reja tuzaman",v:"t"},
+      {t:"Barchani birlashtiraman",v:"j"}
+    ]},
+    {q:"4. Sizni nima ko‘proq qiziqtiradi?", a:[
+      {t:"Dizayn va estetik",v:"i"},
+      {t:"Robototexnika/ Mexanika",v:"t"},
+      {t:"Inson psixologiyasi",v:"j"}
+    ]},
+    {q:"5. Qaysi ish sizga osonroq?", a:[
+      {t:"Yangi g‘oya topish",v:"i"},
+      {t:"Hisob-kitob qilish",v:"t"},
+      {t:"Tushuntirish",v:"j"}
+    ]}
+  ],
+
+  8: [
+    {q:"1. Qaysi ish sizni ko‘proq qoniqtiradi?", a:[
+      {t:"Ijodiy natija",v:"i"},
+      {t:"Mukammal ishlaydigan tizim",v:"t"},
+      {t:"Odamlarning minnatdorchiligi",v:"j"}
+    ]},
+    {q:"2. Siz ishni qanday muhitda bajarishni xohlaysiz?", a:[
+      {t:"Erkin va mustaqil",v:"i"},
+      {t:"Aniq qoidalar bilan",v:"t"},
+      {t:"Jamoa bilan",v:"j"}
+    ]},
+    {q:"3. Siz qaysi vaziyatda o‘zingizni ishonchli his qilasiz?", a:[
+      {t:"Ijodiy topshiriqda",v:"i"},
+      {t:"Texnik muammolarni hal qilganda",v:"t"},
+      {t:"Odamlar bilan muloqotda",v:"j"}
+    ]},
+    {q:"4. Sizga qaysi kasb mosroq deb o‘ylaysiz?", a:[
+      {t:"Dizayner yoki animator",v:"i"},
+      {t:"Dasturchi yoki muhandis",v:"t"},
+      {t:"O‘qituvchi yoki psixolog",v:"j"}
+    ]},
+    {q:"5. Qaysi soha Sizga yaqin?", a:[
+      {t:"San’at va dizayn",v:"i"},
+      {t:"IT va muhandislik",v:"t"},
+      {t:"Ta’lim va xizmat ko‘rsatish",v:"j"}
+    ]}
+  ],
+
+  9: [
+    {q:"1. Bo‘sh vaqtingizda nima bilan ko‘proq shug‘ullanasiz?", a:[{t:"Video montaj/rasm",v:"i"},{t:"Kompyuter o‘ynash/sozlash",v:"t"},{t:"Do‘stlar bilan suhbat",v:"j"}]},
+    {q:"2. Qaysi fan sizga ko‘proq yoqadi?", a:[{t:"Adabiyot/ San’at",v:"i"},{t:"Matematika/ Fizika",v:"t"},{t:"Tarix/ Jamiyat",v:"j"}]},
+    {q:"3. Jamoada siz odatda nima qilasiz?", a:[{t:"G‘oya beraman",v:"i"},{t:"Reja tuzaman",v:"t"},{t:"Barchani birlashtiraman",v:"j"}]},
+    {q:"4. Sizni nima ko‘proq qiziqtiradi?", a:[{t:"Dizayn va estetik",v:"i"},{t:"Robototexnika/ Mexanika",v:"t"},{t:"Inson psixologiyasi",v:"j"}]},
+    {q:"5. Qaysi ish sizga osonroq?", a:[{t:"Yangi g‘oya topish",v:"i"},{t:"Hisob-kitob qilish",v:"t"},{t:"Tushuntirish",v:"j"}]},
+    {q:"6. Sizni nima rag‘batlantiradi?", a:[{t:"Ijodiy erkinlik",v:"i"},{t:"Aniq natija",v:"t"},{t:"Odamlarning minnatdorchiligi",v:"j"}]},
+    {q:"7. Qaysi muhitda qulay his qilasiz?", a:[{t:"Erkin va ijodiy",v:"i"},{t:"Tartibli va texnik",v:"t"},{t:"Jamoaviy",v:"j"}]},
+    {q:"8. Qaysi kasb sizga yaqin?", a:[{t:"Dizayner",v:"i"},{t:"Dasturchi",v:"t"},{t:"Psixolog",v:"j"}]},
+    {q:"9. Qaysi ish sizni ko‘proq xursand qiladi?", a:[{t:"Rassomlik/ musiqiy",v:"i"},{t:"Texnik qurilma tuzatish",v:"t"},{t:"Odamlarga yordam berish",v:"j"}]},
+    {q:"10. Qaysi faoliyat sizni kamroq charchatadi?", a:[{t:"Ijodiy ish",v:"i"},{t:"Texnik ish",v:"t"},{t:"Suhbat va maslahat",v:"j"}]},
+    {q:"11. Qaysi topshiriq sizga yoqadi?", a:[{t:"Loyiha yaratish",v:"i"},{t:"Tizim yaratish",v:"t"},{t:"Odamlarni boshqarish",v:"j"}]},
+    {q:"12. Qaysi narsa sizni ko‘proq quvontiradi?", a:[{t:"San’at",v:"i"},{t:"Texnika",v:"t"},{t:"Ijtimoiy faoliyat",v:"j"}]},
+    {q:"13. Qaysi fan sizga ko‘proq mos?", a:[{t:"Tasviriy san’at",v:"i"},{t:"Fizika",v:"t"},{t:"Tarix",v:"j"}]},
+    {q:"14. Sizni qaysi ish qiziqtiradi?", a:[{t:"Reklama/ grafik dizayn",v:"i"},{t:"Dasturlash",v:"t"},{t:"Yordam va maslahat",v:"j"}]},
+    {q:"15. Kelajakda nimaga ko‘proq intilasiz?", a:[{t:"Ijodiy muvaffaqiyat",v:"i"},{t:"Texnik yutuq",v:"t"},{t:"Jamiyatga foyda",v:"j"}]},
+    {q:"16. Qaysi ishda o‘zingizni ishonchli his qilasiz?", a:[{t:"Ijodda",v:"i"},{t:"Texnik muammolarni hal qilishda",v:"t"},{t:"Odamlar bilan muloqotda",v:"j"}]},
+    {q:"17. Qaysi mashg‘ulot sizni tinchlantiradi?", a:[{t:"Rasm chizish",v:"i"},{t:"Qurilish/ yig‘ish",v:"t"},{t:"Do‘stlar bilan suhbat",v:"j"}]},
+    {q:"18. Qaysi yo‘nalishda o‘qishni xohlaysiz?", a:[{t:"Dizayn/ San’at",v:"i"},{t:"IT/ Muhandislik",v:"t"},{t:"Ta’lim/ Psixologiya",v:"j"}]},
+    {q:"19. Qaysi ish sizni ko‘proq hayajonlantiradi?", a:[{t:"Yangi loyiha",v:"i"},{t:"Yangi texnologiya",v:"t"},{t:"Yangi odamlar bilan tanishish",v:"j"}]},
+    {q:"20. Sizni eng ko‘p nima motivatsiya qiladi?", a:[{t:"Ijodiy erkinlik",v:"i"},{t:"Natija",v:"t"},{t:"Odamlarga yordam",v:"j"}]}
+  ],
+
+  10: [
+    {q:"1. Sizga qaysi yo‘nalish qiziqarliroq?", a:[{t:"Grafik dizayn/ video",v:"i"},{t:"Dasturlash/ robototexnika",v:"t"},{t:"Sotsiologiya/ psixologiya",v:"j"}]},
+    {q:"2. Qaysi ishni qilganingizda vaqtni sezmay qolasiz?", a:[{t:"Rasm chizish",v:"i"},{t:"Kod yozish",v:"t"},{t:"Odamlarga maslahat berish",v:"j"}]},
+    {q:"3. Qaysi fan sizga eng yoqadi?", a:[{t:"Adabiyot",v:"i"},{t:"Matematika",v:"t"},{t:"Jismoniy tarbiya",v:"j"}]},
+    {q:"4. Siz qaysi ishga ko‘proq mossiz?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Ijtimoiy",v:"j"}]},
+    {q:"5. Guruhda siz ko‘proq nima qilasiz?", a:[{t:"Yangi g‘oya",v:"i"},{t:"Reja va hisob",v:"t"},{t:"Barchani birlashtirish",v:"j"}]},
+    {q:"6. Sizga qaysi muhit yoqadi?", a:[{t:"Erkin",v:"i"},{t:"Tartibli",v:"t"},{t:"Jamoaviy",v:"j"}]},
+    {q:"7. Qaysi ish sizni ko‘proq quvontiradi?", a:[{t:"San’at",v:"i"},{t:"Texnika",v:"t"},{t:"Odamlarga yordam",v:"j"}]},
+    {q:"8. Qaysi yo‘nalishda o‘qishni xohlaysiz?", a:[{t:"Dizayn",v:"i"},{t:"IT",v:"t"},{t:"Pedagogika",v:"j"}]},
+    {q:"9. Qaysi ish sizga kamroq charchatadi?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Muloqot",v:"j"}]},
+    {q:"10. Qaysi kasb sizga yaqin?", a:[{t:"Animator",v:"i"},{t:"Muhandis",v:"t"},{t:"O‘qituvchi",v:"j"}]},
+    {q:"11. Qaysi topshiriq sizga qiziqarli?", a:[{t:"Loyiha dizayni",v:"i"},{t:"Texnik yechim",v:"t"},{t:"Jamiyat bilan ishlash",v:"j"}]},
+    {q:"12. Sizga qaysi narsa yoqadi?", a:[{t:"Yaratish",v:"i"},{t:"Tuzatish",v:"t"},{t:"Yordam berish",v:"j"}]},
+    {q:"13. Sizning kuchli tomonlaringiz?", a:[{t:"Tasavvur",v:"i"},{t:"Aniqlik",v:"t"},{t:"Muomala",v:"j"}]},
+    {q:"14. Qaysi faoliyat sizni rag‘batlantiradi?", a:[{t:"Yangi g‘oya",v:"i"},{t:"Natija",v:"t"},{t:"Minnatdorchilik",v:"j"}]},
+    {q:"15. Siz qaysi ishni kelajakda xohlaysiz?", a:[{t:"Ijodiy kasb",v:"i"},{t:"Texnik kasb",v:"t"},{t:"Ijtimoiy kasb",v:"j"}]},
+    {q:"16. Qaysi ish sizni o‘zingizga yaqin his qilasiz?", a:[{t:"San’at",v:"i"},{t:"Mexanika",v:"t"},{t:"Pedagogika",v:"j"}]},
+    {q:"17. Qaysi ish sizga ko‘proq yoqadi?", a:[{t:"Rasm",v:"i"},{t:"Kod",v:"t"},{t:"Suhbat",v:"j"}]},
+    {q:"18. Qaysi yo‘nalishda ko‘proq muvaffaqiyat qozonasiz?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Ijtimoiy",v:"j"}]},
+    {q:"19. Qaysi ishda o‘zingizni kuchli his qilasiz?", a:[{t:"Ijodda",v:"i"},{t:"Texnikada",v:"t"},{t:"Muloqotda",v:"j"}]},
+    {q:"20. Kelajakda qaysi kasb sizga mos?", a:[{t:"Dizayner",v:"i"},{t:"Dasturchi",v:"t"},{t:"Psixolog",v:"j"}]}
+  ],
+
+  11: [
+    {q:"1. Sizga qaysi yo‘nalish ko‘proq mos?", a:[{t:"Reklama/ dizayn",v:"i"},{t:"IT/ muhandislik",v:"t"},{t:"Psixologiya/ sotsiologiya",v:"j"}]},
+    {q:"2. Bo‘sh vaqtingizda nima qilasiz?", a:[{t:"Rasm/ video",v:"i"},{t:"Texnik loyihalar",v:"t"},{t:"Do‘stlar bilan suhbat",v:"j"}]},
+    {q:"3. Qaysi fan sizga eng yoqadi?", a:[{t:"Adabiyot",v:"i"},{t:"Matematika",v:"t"},{t:"Falsafa",v:"j"}]},
+    {q:"4. Qaysi ish sizni ko‘proq qoniqtiradi?", a:[{t:"Ijodiy natija",v:"i"},{t:"Mukammal tizim",v:"t"},{t:"Odamlarga yordam",v:"j"}]},
+    {q:"5. Guruhda siz odatda?", a:[{t:"Ijodiy g‘oya",v:"i"},{t:"Reja va tartib",v:"t"},{t:"Barchani birlashtiraman",v:"j"}]},
+    {q:"6. Qaysi muhitda o‘zingizni qulay his qilasiz?", a:[{t:"Erkin",v:"i"},{t:"Texnik",v:"t"},{t:"Jamoaviy",v:"j"}]},
+    {q:"7. Qaysi ish sizni kamroq charchatadi?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Muloqot",v:"j"}]},
+    {q:"8. Sizni qaysi kasb qiziqtiradi?", a:[{t:"Dizayner",v:"i"},{t:"Muhandis",v:"t"},{t:"O‘qituvchi",v:"j"}]},
+    {q:"9. Qaysi narsa sizni ko‘proq rag‘batlantiradi?", a:[{t:"Yangi g‘oya",v:"i"},{t:"Natija",v:"t"},{t:"Minnatdorchilik",v:"j"}]},
+    {q:"10. Qaysi ish sizga eng oson?", a:[{t:"Yaratish",v:"i"},{t:"Tuzatish",v:"t"},{t:"Yordam berish",v:"j"}]},
+    {q:"11. Sizni ko‘proq nima qiziqtiradi?", a:[{t:"San’at va dizayn",v:"i"},{t:"IT va mexanika",v:"t"},{t:"Insonlar va psixologiya",v:"j"}]},
+    {q:"12. Kelajakda qaysi sohada ishlashni xohlaysiz?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Ijtimoiy",v:"j"}]},
+    {q:"13. Qaysi ishda muvaffaqiyat qozonasiz?", a:[{t:"Ijodiy loyiha",v:"i"},{t:"Texnik yechim",v:"t"},{t:"Jamiyat bilan ishlash",v:"j"}]},
+    {q:"14. Qaysi fan sizga ko‘proq mos?", a:[{t:"Tasviriy san’at",v:"i"},{t:"Fizika",v:"t"},{t:"Psixologiya",v:"j"}]},
+    {q:"15. Sizni qaysi faoliyat xursand qiladi?", a:[{t:"Rassomlik",v:"i"},{t:"Dasturlash",v:"t"},{t:"Odamlarga yordam",v:"j"}]},
+    {q:"16. Qaysi ish sizni ko‘proq hayajonlantiradi?", a:[{t:"Yangi loyiha",v:"i"},{t:"Yangi texnologiya",v:"t"},{t:"Yangi odamlar bilan tanishish",v:"j"}]},
+    {q:"17. Qaysi ish sizga mos?", a:[{t:"Grafik dizayn",v:"i"},{t:"Muhandislik",v:"t"},{t:"Ta’lim",v:"j"}]},
+    {q:"18. Qaysi ish sizga ko‘proq yoqadi?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Muloqot",v:"j"}]},
+    {q:"19. Qaysi ish sizni tinchlantiradi?", a:[{t:"San’at",v:"i"},{t:"Texnik ish",v:"t"},{t:"Do‘stlar bilan suhbat",v:"j"}]},
+    {q:"20. Sizni eng ko‘p nima motivatsiya qiladi?", a:[{t:"Ijodiy erkinlik",v:"i"},{t:"Natija",v:"t"},{t:"Odamlarga yordam",v:"j"}]}
+  ]
+};
+
+function goMenu(){
+ document.getElementById("start").classList.add("hidden");
+ document.getElementById("menu").classList.remove("hidden");
 }
-function go(page){
-    window.location.href = page;
+
+function startTest(cls){
+ document.getElementById("menu").classList.add("hidden");
+ const t=document.getElementById("test");
+ t.innerHTML="";
+ tests[cls].forEach((q,i)=>{
+   t.innerHTML+=`
+   <div class="box">
+     <b>${q.q}</b>
+     ${q.a.map(a=>`
+       <label>
+         <input type="radio" name="q${i}" value="${a.v}">
+         ${a.t}
+       </label>`).join("")}
+   </div>`;
+ });
+ t.innerHTML+=`<button onclick="finish()">Yakunlash</button>`;
+ t.classList.remove("hidden");
+}
+
+function finish(){
+ let s={i:0,t:0,j:0};
+ document.querySelectorAll("input:checked").forEach(i=>s[i.value]++);
+ let res =
+   s.i>=s.t && s.i>=s.j ? "🟢 Siz IJODIY kasblarga mos" :
+   s.t>=s.i && s.t>=s.j ? "🔵 Siz TEXNIK kasblarga mos" :
+   "🟠 Siz IJTIMOIY kasblarga mos";
+ document.getElementById("test").classList.add("hidden");
+ const r=document.getElementById("result");
+ r.innerHTML=res+"<br><br><button onclick='location.reload()'>Qayta boshlash</button>";
+ r.classList.remove("hidden");
 }
 </script>
 
