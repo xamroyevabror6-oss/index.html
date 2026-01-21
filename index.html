@@ -55,6 +55,29 @@
     .header p{font-size:16px}
 }
 </style>
+<style>
+/* === MUALLIF YOZUVI DIZAYNI === */
+.author-badge{
+    display:inline-block;
+    margin-bottom:18px;
+    padding:10px 22px;
+    background:linear-gradient(135deg,#f59e0b,#ef4444);
+    color:#fff;
+    font-weight:600;
+    font-size:16px;
+    border-radius:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+    letter-spacing:0.5px;
+    animation:pulse 2s infinite;
+}
+
+/* yengil animatsiya */
+@keyframes pulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.05)}
+    100%{transform:scale(1)}
+}
+</style>
 
 <meta charset="UTF-8">
 <title>Psixologik va Kasb-Hunar Test</title>
@@ -103,6 +126,17 @@ button{
 <div class="header">
     <h1>Psixologik va Kasb-Hunar Test</h1>
     <p>6–11 sinf o‘quvchilari uchun professional test</p>
+</div>
+<div class="start-box">
+
+    <div class="author-badge">
+        Xamroyev Abror tomonidan tuzilgan
+    </div>
+
+    <button class="start-btn" onclick="showGrades()">
+        Boshlash
+    </button>
+
 </div>
 
 <div class="start-box">
