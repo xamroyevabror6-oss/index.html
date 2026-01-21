@@ -3,230 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kasb-hunar testi</title>
-
+<title>Psixologik va Kasb-Hunar Testlar (6-11 sinf)</title>
 <style>
-body{font-family:Arial;background:#f3f4f6;padding:15px}
-h2,h3{text-align:center}
-.box{background:#fff;padding:18px;border-radius:12px;margin-bottom:15px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
-button{padding:12px 20px;margin:6px;border:none;border-radius:8px;background:#2563eb;color:#fff;font-size:16px;cursor:pointer}
-button:hover{background:#1e40af}
-label{display:block;margin:6px 0}
-.hidden{display:none}
-.author{text-align:center;font-size:14px;color:#555;margin-top:15px}
+body { font-family: Arial, sans-serif; background: #f0f0f5; padding: 20px; }
+h1, h2 { text-align: center; color: #333; }
+.container { max-width: 700px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.button { padding: 10px 20px; margin: 10px; border: none; border-radius: 5px; background: #4CAF50; color: #fff; cursor: pointer; font-size: 16px; }
+.button:hover { background: #45a049; }
+.question { margin-bottom: 15px; }
+.options button { display: block; margin: 5px 0; padding: 10px; width: 100%; border: none; border-radius: 5px; background: #2196F3; color: white; cursor: pointer; }
+.options button:hover { background: #0b7dda; }
+#result { display: none; text-align: center; margin-top: 20px; font-size: 1.2em; }
+#start { text-align: center; }
+#author { text-align:center; margin-bottom:20px; font-weight:bold; font-size:1.1em; }
 </style>
 </head>
-
 <body>
+<div class="container">
+    <div id="author">34-maktab o‘quvchisi Xamroyev Abror tomonidan tuzilgan test</div>
+    <h1>Psixologik va Kasb-Hunar Testlar</h1>
+    <div id="start">
+        <p>Salom! Quyidagi testlar 6-sinfdan 11-sinfgacha bo‘lgan o‘quvchilar uchun moslashtirilgan.</p>
+        <button class="button" onclick="showGrades()">Boshlash</button>
+    </div>
 
-<div id="start" class="box">
-  <h2>Kasb-hunarga yo‘naltiruvchi test</h2>
-  <p style="text-align:center">
-    Ushbu test o‘quvchilarning qiziqishi va kelajak kasbini aniqlashga yordam beradi.
-  </p>
-  <div style="text-align:center">
-    <button onclick="goMenu()">Boshlash</button>
-  </div>
-  <div class="author">
-    Bu savol-javob testlarni <b>34-maktab o‘quvchisi Xamroyev Abror</b> tayyorlagan
-  </div>
+    <div id="grades" style="display:none; text-align:center;">
+        <h2>Sinfni tanlang:</h2>
+        <button class="button" onclick="startTest(6)">6-sinf</button>
+        <button class="button" onclick="startTest(7)">7-sinf</button>
+        <button class="button" onclick="startTest(8)">8-sinf</button>
+        <button class="button" onclick="startTest(9)">9-sinf</button>
+        <button class="button" onclick="startTest(10)">10-sinf</button>
+        <button class="button" onclick="startTest(11)">11-sinf</button>
+    </div>
+
+    <div id="quiz" style="display:none;"></div>
+    <div id="result"></div>
 </div>
-
-<div id="menu" class="box hidden">
-  <h3>Sinfni tanlang</h3>
-  <div style="text-align:center">
-    <button onclick="startTest(6)">6-sinf</button>
-    <button onclick="startTest(7)">7-sinf</button>
-    <button onclick="startTest(8)">8-sinf</button>
-    <button onclick="startTest(9)">9-sinf</button>
-    <button onclick="startTest(10)">10-sinf</button>
-    <button onclick="startTest(11)">11-sinf</button>
-  </div>
-</div>
-
-<div id="test" class="hidden"></div>
-<div id="result" class="box hidden"></div>
 
 <script>
-// v: "i"=Ijodiy, "t"=Texnik, "j"=Ijtimoiy
-const tests = {
- 
-   6: [
-{q:"Siz yangi narsalarni o‘rganishni yoqtirasizmi?", a:["Ha, doimo qiziqaman","Ba’zan qiziqaman","Yo‘q, ko‘proq o‘yin qilaman"]},
-{q:"Do‘stlaringiz bilan nima qilganni yoqtirasiz?", a:["Ularni o‘rgataman yoki maslahat beraman","Kitob o‘qiymiz yoki hikoya qilamiz","O‘yin va sport bilan band bo‘lamiz"]},
-{q:"Sizni nima xursand qiladi?", a:["Yangi bilim olish","O‘zingiz hikoya yozish","Yutuq yoki sovrin"]},
-{q:"O‘z vaqtida ishni tugatishni yoqtirasizmi?", a:["Ha, doim reja bo‘yicha","Ba’zan","Yo‘q"]},
-{q:"Siz qaysi turdagi o‘yinlarni yoqtirasiz?", a:["Strategik va mantiqiy","Ijodiy","Faol va sport"]},
-{q:"Qanday kitobni o‘qishni yoqtirasiz?", a:["Fan va bilim kitoblari","Hikoya va ertaklar","Sport va faoliyat kitoblari"]},
-{q:"Do‘stlaringiz sizni qanday deb biladi?", a:["Yordamchi va aqlli","Ijodkor va tasavvurli","Faol va jasur"]},
-{q:"Siz stressga qanday qaraysiz?", a:["Tinchlanib yechim izlayman","Ijod bilan band bo‘laman","Jismoniy faoliyat bilan"]},
-{q:"Sizga eng yoqadigan fan?", a:["Matematika","Ona tili va adabiyot","Jismoniy tarbiya"]},
-{q:"Sizning sevimli mashg‘ulotingiz?", a:["O‘rganish va o‘qish","Rassomlik va yozish","Sport va o‘yin"]},
-{q:"Siz qanday ishlarni yoqtirasiz?", a:["Yangi narsani o‘rganish","Ijodiy ishlash","Harakat va sport"]},
-{q:"Siz ko‘proq qaysi turdagi ishlarni afzal ko‘rasiz?", a:["Tahlil va mantiqiy","Tasavvur va ijod","Faol va jasoratli"]},
-{q:"Sizni nima motivatsiya qiladi?", a:["Bilim va muvaffaqiyat","Yaratish va hikoya","Harakat va raqobat"]},
-{q:"Siz o‘z vaqtida ishni rejalashtirasizmi?", a:["Ha, tartibli","Ba’zan","Yo‘q"]},
-{q:"Do‘stlaringizga yordam berasizmi?", a:["Ha, maslahat beraman","Ba’zan","Yo‘q"]},
-{q:"Siz yangi loyihaga qo‘shilasizmi?", a:["Ha, o‘rganish uchun","Ijodiy qism uchun","Faol bo‘lish uchun"]},
-{q:"Sizni nima xafa qiladi?", a:["Bilimsizlik","Ijodsizlik","Harakatsizlik"]},
-{q:"Siz qanday faoliyatni yoqtirasiz?", a:["O‘rganish va o‘qish","Yaratish va tasviriy","Sport va faoliyat"]},
-{q:"Siz ko‘proq qaysi turdagi ishlarni yaxshi ko‘rasiz?", a:["Tahliliy","Ijodiy","Faol"]},
-{q:"Sizni qaysi ishlar xursand qiladi?", a:["Yangi bilim","Yangi hikoya","Yutuq va sovrin"]}
+// 6-11 sinf test savollari
+const allQuestions = {
+    6: [
+        {q:"1. Bo'sh vaqtingizda nima qilishni yoqtirasiz?", options:["Kitob o‘qish","Rasmlar chizish","Sport bilan shug‘ullanish"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"2. Muammolarni hal qilishda qanday yondashasiz?", options:["Reja tuzaman","Fikrimni yarataman","Darhol harakat qilaman"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"3. Qaysi fan sizga qiziq?", options:["Matematika","San'at","Jismoniy tarbiya"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"4. Qaysi ish sizga yoqadi?", options:["Tajriba o'tkazish","Rassomchilik","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"5. Sizni nima ilhomlantiradi?", options:["Kitoblar","Musiqa va chizma","Sport yutuqlari"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"6. Qaysi turdagi o'yinlarni yoqtirasiz?", options:["Mantiqiy","Ijodiy","Jismoniy"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"7. Qanday ishlarda qulayroq bo‘lasiz?", options:["Tahlil qilish","Yangi narsalar yaratish","Harakat bilan"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"8. Do‘stlaringiz sizni qanday odam deb biladi?", options:["O‘rganishni yoqtiradi","Ijodiy","Faol va sportchi"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"9. O‘zingizni qayerda tasavvur qilasiz?", options:["Laboratoriyada","Studiyada","Stadion yoki maydonda"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"10. Qaysi ish turi sizga qiyinchilik tug‘dirmaydi?", options:["Matematika masalalari","Rassomchilik","Jismoniy mashqlar"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"11. Sizga qaysi turdagi kitoblar yoqadi?", options:["Ilmiy","Fantaziya","Sport tarixiy"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"12. Qaysi mashg‘ulot sizni baxtli qiladi?", options:["Eksperiment qilish","Rassomlik","Sport bilan shug‘ullanish"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"13. Qanday vaziyatda ko‘proq qulay his qilasiz?", options:["O‘ylash va tahlil","Yaratish","Harakatda"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"14. Qaysi ish turi qiziqarli?", options:["Masala yechish","Chizma va dizayn","Sport o‘yinlari"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"15. Sizga nimalar yoqmaydi?", options:["Noaniqlik","Cheklangan ijod","Faoliyatsizlik"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"16. Sizni qanday ishlar qoniqtiradi?", options:["Natijalarni ko‘rish","Yangi narsa yaratish","Jismoniy yutuq"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"17. Sizni qanday guruh ishlariga jalb qilishadi?", options:["Tahlil qilish","Ijodiy loyiha","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"18. Qanday ishni tezroq bajarasiz?", options:["Mantiqiy masala","Rassomlik","Sport mashqi"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"19. Qaysi mashg‘ulot sizni qiziqtiradi?", options:["Ilmiy tadqiqot","San’at va musiqa","Jismoniy o‘yinlar"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"20. Qaysi ishda o‘zingizni eng yaxshi his qilasiz?", options:["Tahlil va izlanish","Yaratish va ijod","Harakat va sport"], type:["ilmiy","ijodiy","jismoniy"]}
+    ],
+    7: [
+        {q:"1. Bo‘sh vaqtingizda nima qilasiz?", options:["Komp'yuter o‘yinlari","Rassomlik","Sport mashg‘ulotlari"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"2. Qaysi fan sizni qiziqtiradi?", options:["Biologiya","San’at","Jismoniy tarbiya"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"3. Muammolarni hal qilishda qanday yondashasiz?", options:["Tahlil qilaman","Yarataman","Harakat qilaman"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"4. Qaysi turdagi kitoblarni yoqtirasiz?", options:["Ilmiy","Fantaziya","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"5. Qaysi ish sizga yoqadi?", options:["Tajriba o'tkazish","Ijodiy loyiha","Jismoniy mashg‘ulot"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"6. Sizni nima quvontiradi?", options:["Yangi bilim","San’at ishlari","Sport yutuqlari"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"7. Qaysi o‘yinlarni yoqtirasiz?", options:["Mantiqiy","Ijodiy","Jismoniy"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"8. Do‘stlaringiz sizni qanday odam deb biladi?", options:["O‘rganuvchi","Ijodiy","Faol"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"9. Sizni qanday ish qiziqtiradi?", options:["Masalalar yechish","Rassomchilik","Sport o‘yinlari"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"10. Qaysi ish turi qiyinchilik tug‘dirmaydi?", options:["Ilmiy masalalar","San’at loyihalari","Sport mashqlari"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"11. Sizga qaysi mashg‘ulot yoqadi?", options:["Eksperimentlar","Rassomlik","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"12. Sizni nima ilhomlantiradi?", options:["Ilmiy kashfiyotlar","Ijodiy ishlar","Faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"13. Qaysi vaziyatda ko‘proq qulay his qilasiz?", options:["Tahlil qilish","Yaratish","Harakatda"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"14. Qaysi ish turi qiziqarli?", options:["Masalalarni yechish","San’at va musiqa","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"15. Sizga nimalar yoqmaydi?", options:["Noaniqlik","Cheklangan ijod","Faoliyatsizlik"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"16. Sizni qanday ishlar qoniqtiradi?", options:["Natija ko‘rish","Yaratish","Jismoniy yutuq"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"17. Sizni qanday guruh ishlariga jalb qilishadi?", options:["Tahlil qilish","Ijodiy loyiha","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"18. Qanday ishni tezroq bajarasiz?", options:["Mantiqiy masala","Rassomlik","Sport mashqi"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"19. Qaysi mashg‘ulot sizni qiziqtiradi?", options:["Ilmiy tadqiqot","San’at va musiqa","Jismoniy o‘yinlar"], type:["ilmiy","ijodiy","jismoniy"]},
+        {q:"20. Qaysi ishda o‘zingizni eng yaxshi his qilasiz?", options:["Tahlil va izlanish","Yaratish va ijod","Harakat va sport"], type:["ilmiy","ijodiy","jismoniy"]}
+    ],
+    8: [
+  {q:"1. Bo‘sh vaqtingizda nima qilasiz?", options:["Kitob o‘qish","Rassomchilik","Sport bilan shug‘ullanish"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"2. Sizni nima quvontiradi?", options:["Yangi bilim","San’at ishlari","Jismoniy mashqlar"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"3. Muammolarni hal qilishda qanday yondashasiz?", options:["Tahlil qilaman","Ijodiy yechim topaman","Darhol harakat qilaman"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"4. Qaysi fan sizga qiziq?", options:["Biologiya","San’at","Jismoniy tarbiya"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"5. Qaysi ish sizni baxtli qiladi?", options:["Eksperiment qilish","Rassomchilik","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"6. Sizni qaysi turdagi o‘yinlar qiziqtiradi?", options:["Mantiqiy","Ijodiy","Jismoniy"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"7. Sizni qanday ishlar qoniqtiradi?", options:["Natijalarni ko‘rish","Yaratish","Jismoniy yutuq"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"8. Do‘stlaringiz sizni qanday odam deb biladi?", options:["O‘rganishni yoqtiradi","Ijodiy","Faol"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"9. O‘zingizni qayerda tasavvur qilasiz?", options:["Laboratoriya","Studia","Stadion"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"10. Sizga qaysi turdagi kitoblar yoqadi?", options:["Ilmiy","Fantaziya","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"11. Qaysi ish turi sizga qiyinchilik tug‘dirmaydi?", options:["Masalalarni yechish","Rassomchilik","Sport mashqlari"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"12. Qaysi ish turi sizni ilhomlantiradi?", options:["Tadqiqotlar","Ijodiy ishlar","Faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"13. Qaysi vaziyatda qulay his qilasiz?", options:["Tahlil qilish","Yaratish","Harakatda"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"14. Qaysi ish turi sizga qiziq?", options:["Masala yechish","San’at va musiqa","Jismoniy o‘yinlar"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"15. Sizga nimalar yoqmaydi?", options:["Noaniqlik","Cheklangan ijod","Faoliyatsizlik"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"16. Sizni qanday guruh ishlariga jalb qilishadi?", options:["Tahlil qilish","Ijodiy loyiha","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"17. Qanday ishni tezroq bajarasiz?", options:["Mantiqiy masala","Rassomlik","Sport mashqi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"18. Sizni qaysi mashg‘ulot qiziqtiradi?", options:["Ilmiy tadqiqot","San’at va musiqa","Jismoniy o‘yinlar"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"19. Qaysi ishda o‘zingizni eng yaxshi his qilasiz?", options:["Tahlil va izlanish","Yaratish va ijod","Harakat va sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"20. Qaysi ish turi sizga mos?", options:["Ilm-fan","Ijodiy","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]}
 ],
-7: [
-{q:"Sizni qaysi fan qiziqtiradi?", a:["Matematika va fan","Adabiyot va san’at","Jismoniy tarbiya"]},
-{q:"Siz muammolarni qanday hal qilasiz?", a:["Tahlil qilib","Ijodiy yechim topib","Amaliy harakat bilan"]},
-{q:"Sizni qaysi ish motivatsiya qiladi?", a:["Yangi bilim","Yaratish","Raqobat va faoliyat"]},
-{q:"Do‘stlaringiz bilan nima qilganni yoqtirasiz?", a:["Maslahat berish","Hikoya yoki yozish","O‘yin va sport"]},
-{q:"Sizni nima xursand qiladi?", a:["Yutuq yoki bilim","Ijodiy natija","Sport va g‘alaba"]},
-{q:"Siz qaysi turdagi kitobni yoqtirasiz?", a:["Fan kitoblari","Hikoya va adabiyot","Sport kitoblari"]},
-{q:"Siz yangi narsalarni o‘rganishni yoqtirasizmi?", a:["Ha","Ba’zan","Yo‘q"]},
-{q:"Stressga qanday qaraysiz?", a:["Tinchlanib","Ijod bilan","Harakat bilan"]},
-{q:"Siz o‘z vaqtida ishni tugatishni yoqtirasizmi?", a:["Ha","Ba’zan","Yo‘q"]},
-{q:"Do‘stlaringiz sizni qanday deb biladi?", a:["Aqlli va yordamchi","Ijodkor","Faol va jasur"]},
-{q:"Siz ko‘proq qaysi ishlarni afzal ko‘rasiz?", a:["Tahliliy","Ijodiy","Faol"]},
-{q:"Sizni nima xafa qiladi?", a:["Bilimsizlik","Ijodsizlik","Harakatsizlik"]},
-{q:"Sizni nima motivatsiya qiladi?", a:["Bilim","Yaratish","Harakat"]},
-{q:"Siz yangi loyihaga qo‘shilasizmi?", a:["Ha, o‘rganish uchun","Ijodiy qism uchun","Faol bo‘lish uchun"]},
-{q:"Siz o‘z vaqtida ishni rejalashtirasizmi?", a:["Ha, tartibli","Ba’zan","Yo‘q"]},
-{q:"Siz o‘zingizni qanday his qilasiz?", a:["Tinch va o‘ylovchi","Tasavvurli","Faol"]},
-{q:"Siz qaysi turdagi ishlarni yoqtirasiz?", a:["Mantiqiy","Ijodiy","Faol"]},
-{q:"Sizni qaysi ishlar xursand qiladi?", a:["Yangi bilim","Yangi hikoya","Yutuq va sovrin"]},
-{q:"Do‘stlaringiz bilan qanday munosabatda bo‘lasiz?", a:["Yordamchi","Hamroh","Hamkor sportchi"]},
-{q:"Siz ko‘proq qaysi turdagi o‘yinlarni yoqtirasiz?", a:["Strategik","Ijodiy","Faol"]}
-],
-8: [
-{q:"Siz yangi bilim olishni yoqtirasizmi?", a:["Ha, doimo","Ba’zan","Yo‘q"]},
-{q:"Siz muammolarni qanday hal qilasiz?", a:["Tahlil qilib","Ijodiy yechim","Amaliy harakat bilan"]},
-{q:"Sizni qaysi ish motivatsiya qiladi?", a:["Bilim va muvaffaqiyat","Yaratish","Raqobat va g‘alaba"]},
-{q:"Do‘stlar bilan nima qilganni yoqtirasiz?", a:["Maslahat va o‘rgatish","Hikoya va ijod","Sport va o‘yin"]},
-{q:"Sizni nima xursand qiladi?", a:["Yutuq bilim","Ijodiy natija","Sport yutug‘i"]},
-{q:"Qaysi kitob sizga yoqadi?", a:["Fan kitoblari","Adabiyot","Sport kitoblari"]},
-{q:"Siz stressga qanday qaraysiz?", a:["Tinchlanib","Ijod bilan band","Harakat bilan"]},
-{q:"O‘z vaqtida ishni tugatishni yoqtirasizmi?", a:["Ha","Ba’zan","Yo‘q"]},
-{q:"Do‘stlar sizni qanday deb biladi?", a:["Aqlli","Ijodkor","Faol"]},
-{q:"Siz ko‘proq qaysi ishlarni afzal ko‘rasiz?", a:["Tahliliy","Ijodiy","Faol"]},
-{q:"Sizni nima xafa qiladi?", a:["Bilimsizlik","Ijodsizlik","Harakatsizlik"]},
-{q:"Sizni nima motivatsiya qiladi?", a:["Bilim","Yaratish","Harakat"]},
-{q:"Siz yangi loyihaga qo‘shilasizmi?", a:["Ha, o‘rganish uchun","Ijodiy qism uchun","Faol bo‘lish uchun"]},
-{q:"Siz o‘z vaqtida ishni rejalashtirasizmi?", a:["Ha","Ba’zan","Yo‘q"]},
-{q:"Siz o‘zingizni qanday his qilasiz?", a:["Tinch","Tasavvurli","Faol"]},
-{q:"Siz qaysi turdagi ishlarni yoqtirasiz?", a:["Mantiqiy","Ijodiy","Faol"]},
-{q:"Sizni qaysi ishlar xursand qiladi?", a:["Yangi bilim","Yangi hikoya","Yutuq va sovrin"]},
-{q:"Do‘stlar bilan qanday munosabatdasiz?", a:["Yordamchi","Hamroh","Hamkor sportchi"]},
-{q:"Siz ko‘proq qaysi turdagi o‘yinlarni yoqtirasiz?", a:["Strategik","Ijodiy","Faol"]},
-{q:"Sizni eng ko‘p nima hayajonlantiradi?", a:["Yangi bilim","Yaratish","Yutuq"]}
+    9: [
+  {q:"1. Bo‘sh vaqtingizda nima qilasiz?", options:["Kitob o‘qish","San’at bilan shug‘ullanish","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"2. Sizni nima ilhomlantiradi?", options:["Ilmiy kashfiyotlar","Ijodiy ishlar","Sport yutuqlari"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"3. Qaysi fan sizga yoqadi?", options:["Fizika","San’at","Jismoniy tarbiya"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"4. Muammolarni hal qilishda qanday yondashasiz?", options:["Tahlil qilaman","Yarataman","Darhol harakat qilaman"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"5. Qaysi ish turi sizni baxtli qiladi?", options:["Tajriba o'tkazish","Rassomchilik","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"6. Sizni qaysi mashg‘ulot qiziqtiradi?", options:["Ilmiy izlanish","San’at","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"7. Qaysi turdagi o‘yinlarni yoqtirasiz?", options:["Mantiqiy","Ijodiy","Jismoniy"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"8. Do‘stlaringiz sizni qanday odam deb biladi?", options:["O‘rganuvchi","Ijodiy","Faol"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"9. O‘zingizni qayerda tasavvur qilasiz?", options:["Laboratoriya","Studia","Stadion"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"10. Sizga qaysi kitoblar yoqadi?", options:["Ilmiy","Fantaziya","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"11. Qaysi ish sizga qiyinchilik tug‘dirmaydi?", options:["Masalalarni yechish","Rassomchilik","Sport mashqlari"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"12. Sizni nima ilhomlantiradi?", options:["Ilm-fan","Ijodiy","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"13. Sizni qanday guruh ishlariga jalb qilishadi?", options:["Tahlil qilish","Ijodiy loyiha","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"14. Qanday ishni tezroq bajarasiz?", options:["Mantiqiy masala","Rassomlik","Sport mashqi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"15. Qaysi ish turi sizga qiziq?", options:["Masalalarni yechish","San’at va musiqa","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"16. Sizga nimalar yoqmaydi?", options:["Noaniqlik","Cheklangan ijod","Faoliyatsizlik"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"17. Sizni qaysi mashg‘ulot qoniqtiradi?", options:["Tahlil va tadqiqot","Yaratish","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"18. Sizni qanday ishlar qiziqtiradi?", options:["Ilmiy tadqiqot","San’at","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"19. Qaysi ishda o‘zingizni eng yaxshi his qilasiz?", options:["Tahlil va izlanish","Yaratish va ijod","Harakat va sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"20. Qaysi yo‘nalish sizga mos?", options:["Ilm-fan","Ijodiy","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]}
 ]
-};
+    10: [
+  {q:"1. Sizga qaysi yo‘nalish qiziq?", options:["Matematika va fizika","San’at va dizayn","Jismoniy mashg‘ulotlar"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"2. Bo‘sh vaqtingizni qanday o‘tkazasiz?", options:["Kitob o‘qish","Rassomchilik","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"3. Sizni nima ilhomlantiradi?", options:["Ilm-fan","Ijodiy ishlar","Sport yutuqlari"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"4. Muammolarni hal qilishda qanday yondashasiz?", options:["Tahlil qilaman","Yarataman","Darhol harakat qilaman"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"5. Qaysi ish sizni baxtli qiladi?", options:["Tajriba o'tkazish","Rassomchilik","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"6. Qaysi turdagi o‘yinlarni yoqtirasiz?", options:["Mantiqiy","Ijodiy","Jismoniy"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"7. Sizni qaysi ish qoniqtiradi?", options:["Natijalarni ko‘rish","Yaratish","Jismoniy yutuq"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"8. Do‘stlaringiz sizni qanday odam deb biladi?", options:["O‘rganuvchi","Ijodiy","Faol"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"9. Sizni qaysi mashg‘ulot qiziqtiradi?", options:["Ilmiy tadqiqot","San’at","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"10. Qaysi ish turi qiyinchilik tug‘dirmaydi?", options:["Ilmiy masalalar","San’at loyihalari","Sport mashqlari"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"11. Sizga qaysi kitoblar yoqadi?", options:["Ilmiy","Fantaziya","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"12. Sizni nima ilhomlantiradi?", options:["Ilm-fan","Ijodiy","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"13. Qaysi vaziyatda qulay his qilasiz?", options:["Tahlil qilish","Yaratish","Harakatda"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"14. Qaysi ish turi sizga qiziq?", options:["Masalalarni yechish","San’at va musiqa","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"15. Sizga nimalar yoqmaydi?", options:["Noaniqlik","Cheklangan ijod","Faoliyatsizlik"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"16. Sizni qanday guruh ishlariga jalb qilishadi?", options:["Tahlil qilish","Ijodiy loyiha","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"17. Qanday ishni tezroq bajarasiz?", options:["Mantiqiy masala","Rassomlik","Sport mashqi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"18. Qaysi mashg‘ulot sizni qiziqtiradi?", options:["Ilmiy tadqiqot","San’at","Jismoniy o‘yinlar"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"19. Qaysi ishda o‘zingizni eng yaxshi his qilasiz?", options:["Tahlil va izlanish","Yaratish va ijod","Harakat va sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"20. Qaysi ish turi sizga mos?", options:["Ilm-fan","Ijodiy","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]}
+],
+    11: [
+  {q:"1. Siz kelajakda qaysi ish bilan shug‘ullanishni xohlaysiz?", options:["Ilm-fan","San’at yoki ijod","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"2. Bo‘sh vaqtingizni qanday o‘tkazasiz?", options:["Kitob o‘qish","Rassomchilik","Jismoniy mashg‘ulot"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"3. Sizni nima ilhomlantiradi?", options:["Ilmiy kashfiyotlar","Ijodiy ishlar","Sport yutuqlari"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"4. Qaysi fan sizga yoqadi?", options:["Matematika","San’at","Jismoniy tarbiya"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"5. Muammolarni hal qilishda qanday yondashasiz?", options:["Tahlil qilaman","Yarataman","Darhol harakat qilaman"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"6. Qaysi ish sizni quvontiradi?", options:["Tajriba va izlanish","Rassomchilik","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"7. Sizni qaysi mashg‘ulot qiziqtiradi?", options:["Ilmiy tadqiqot","San’at va musiqa","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"8. Qaysi turdagi o‘yinlarni yoqtirasiz?", options:["Mantiqiy","Ijodiy","Jismoniy"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"9. Do‘stlaringiz sizni qanday odam deb biladi?", options:["O‘rganuvchi","Ijodiy","Faol"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"10. O‘zingizni qayerda tasavvur qilasiz?", options:["Laboratoriya","Studia","Stadion"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"11. Sizga qaysi kitoblar yoqadi?", options:["Ilmiy","Fantaziya","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"12. Qaysi ish turi sizni baxtli qiladi?", options:["Tajriba qilish","Rassomchilik","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"13. Qanday ishni tezroq bajarasiz?", options:["Mantiqiy masala","Rassomlik","Sport mashqi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"14. Sizni qanday guruh ishlariga jalb qilishadi?", options:["Tahlil qilish","Ijodiy loyiha","Sport musobaqasi"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"15. Qaysi ish turi sizga qiziq?", options:["Masala yechish","San’at va musiqa","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"16. Sizni qaysi mashg‘ulot qoniqtiradi?", options:["Tahlil va tadqiqot","Yaratish","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniyy
+},  {q:"17. Sizga nimalar yoqmaydi?", options:["Noaniqlik","Cheklangan ijod","Faoliyatsizlik"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"18. Sizni qanday ishlar qiziqtiradi?", options:["Ilmiy tadqiqot","San’at","Sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"19. Qaysi ishda o‘zingizni eng yaxshi his qilasiz?", options:["Tahlil va izlanish","Yaratish va ijod","Harakat va sport"], type:["ilmiy","ijodiy","jismoniy"]},
+  {q:"20. Qaysi ish turi sizga qiziq?", options:["Masala yechish","San’at va musiqa","Jismoniy faoliyat"], type:["ilmiy","ijodiy","jismoniy"]}
+// Natijani hisoblash
+let currentGrade = 6;
+let currentQuestion = 0;
+let scores = {ilmiy:0, ijodiy:0, jismoniy:0};
 
-
-  9: [
-    {q:"1. Bo‘sh vaqtingizda nima bilan ko‘proq shug‘ullanasiz?", a:[{t:"Video montaj/rasm",v:"i"},{t:"Kompyuter o‘ynash/sozlash",v:"t"},{t:"Do‘stlar bilan suhbat",v:"j"}]},
-    {q:"2. Qaysi fan sizga ko‘proq yoqadi?", a:[{t:"Adabiyot/ San’at",v:"i"},{t:"Matematika/ Fizika",v:"t"},{t:"Tarix/ Jamiyat",v:"j"}]},
-    {q:"3. Jamoada siz odatda nima qilasiz?", a:[{t:"G‘oya beraman",v:"i"},{t:"Reja tuzaman",v:"t"},{t:"Barchani birlashtiraman",v:"j"}]},
-    {q:"4. Sizni nima ko‘proq qiziqtiradi?", a:[{t:"Dizayn va estetik",v:"i"},{t:"Robototexnika/ Mexanika",v:"t"},{t:"Inson psixologiyasi",v:"j"}]},
-    {q:"5. Qaysi ish sizga osonroq?", a:[{t:"Yangi g‘oya topish",v:"i"},{t:"Hisob-kitob qilish",v:"t"},{t:"Tushuntirish",v:"j"}]},
-    {q:"6. Sizni nima rag‘batlantiradi?", a:[{t:"Ijodiy erkinlik",v:"i"},{t:"Aniq natija",v:"t"},{t:"Odamlarning minnatdorchiligi",v:"j"}]},
-    {q:"7. Qaysi muhitda qulay his qilasiz?", a:[{t:"Erkin va ijodiy",v:"i"},{t:"Tartibli va texnik",v:"t"},{t:"Jamoaviy",v:"j"}]},
-    {q:"8. Qaysi kasb sizga yaqin?", a:[{t:"Dizayner",v:"i"},{t:"Dasturchi",v:"t"},{t:"Psixolog",v:"j"}]},
-    {q:"9. Qaysi ish sizni ko‘proq xursand qiladi?", a:[{t:"Rassomlik/ musiqiy",v:"i"},{t:"Texnik qurilma tuzatish",v:"t"},{t:"Odamlarga yordam berish",v:"j"}]},
-    {q:"10. Qaysi faoliyat sizni kamroq charchatadi?", a:[{t:"Ijodiy ish",v:"i"},{t:"Texnik ish",v:"t"},{t:"Suhbat va maslahat",v:"j"}]},
-    {q:"11. Qaysi topshiriq sizga yoqadi?", a:[{t:"Loyiha yaratish",v:"i"},{t:"Tizim yaratish",v:"t"},{t:"Odamlarni boshqarish",v:"j"}]},
-    {q:"12. Qaysi narsa sizni ko‘proq quvontiradi?", a:[{t:"San’at",v:"i"},{t:"Texnika",v:"t"},{t:"Ijtimoiy faoliyat",v:"j"}]},
-    {q:"13. Qaysi fan sizga ko‘proq mos?", a:[{t:"Tasviriy san’at",v:"i"},{t:"Fizika",v:"t"},{t:"Tarix",v:"j"}]},
-    {q:"14. Sizni qaysi ish qiziqtiradi?", a:[{t:"Reklama/ grafik dizayn",v:"i"},{t:"Dasturlash",v:"t"},{t:"Yordam va maslahat",v:"j"}]},
-    {q:"15. Kelajakda nimaga ko‘proq intilasiz?", a:[{t:"Ijodiy muvaffaqiyat",v:"i"},{t:"Texnik yutuq",v:"t"},{t:"Jamiyatga foyda",v:"j"}]},
-    {q:"16. Qaysi ishda o‘zingizni ishonchli his qilasiz?", a:[{t:"Ijodda",v:"i"},{t:"Texnik muammolarni hal qilishda",v:"t"},{t:"Odamlar bilan muloqotda",v:"j"}]},
-    {q:"17. Qaysi mashg‘ulot sizni tinchlantiradi?", a:[{t:"Rasm chizish",v:"i"},{t:"Qurilish/ yig‘ish",v:"t"},{t:"Do‘stlar bilan suhbat",v:"j"}]},
-    {q:"18. Qaysi yo‘nalishda o‘qishni xohlaysiz?", a:[{t:"Dizayn/ San’at",v:"i"},{t:"IT/ Muhandislik",v:"t"},{t:"Ta’lim/ Psixologiya",v:"j"}]},
-    {q:"19. Qaysi ish sizni ko‘proq hayajonlantiradi?", a:[{t:"Yangi loyiha",v:"i"},{t:"Yangi texnologiya",v:"t"},{t:"Yangi odamlar bilan tanishish",v:"j"}]},
-    {q:"20. Sizni eng ko‘p nima motivatsiya qiladi?", a:[{t:"Ijodiy erkinlik",v:"i"},{t:"Natija",v:"t"},{t:"Odamlarga yordam",v:"j"}]}
-  ],
-
-  10: [
-    {q:"1. Sizga qaysi yo‘nalish qiziqarliroq?", a:[{t:"Grafik dizayn/ video",v:"i"},{t:"Dasturlash/ robototexnika",v:"t"},{t:"Sotsiologiya/ psixologiya",v:"j"}]},
-    {q:"2. Qaysi ishni qilganingizda vaqtni sezmay qolasiz?", a:[{t:"Rasm chizish",v:"i"},{t:"Kod yozish",v:"t"},{t:"Odamlarga maslahat berish",v:"j"}]},
-    {q:"3. Qaysi fan sizga eng yoqadi?", a:[{t:"Adabiyot",v:"i"},{t:"Matematika",v:"t"},{t:"Jismoniy tarbiya",v:"j"}]},
-    {q:"4. Siz qaysi ishga ko‘proq mossiz?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Ijtimoiy",v:"j"}]},
-    {q:"5. Guruhda siz ko‘proq nima qilasiz?", a:[{t:"Yangi g‘oya",v:"i"},{t:"Reja va hisob",v:"t"},{t:"Barchani birlashtirish",v:"j"}]},
-    {q:"6. Sizga qaysi muhit yoqadi?", a:[{t:"Erkin",v:"i"},{t:"Tartibli",v:"t"},{t:"Jamoaviy",v:"j"}]},
-    {q:"7. Qaysi ish sizni ko‘proq quvontiradi?", a:[{t:"San’at",v:"i"},{t:"Texnika",v:"t"},{t:"Odamlarga yordam",v:"j"}]},
-    {q:"8. Qaysi yo‘nalishda o‘qishni xohlaysiz?", a:[{t:"Dizayn",v:"i"},{t:"IT",v:"t"},{t:"Pedagogika",v:"j"}]},
-    {q:"9. Qaysi ish sizga kamroq charchatadi?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Muloqot",v:"j"}]},
-    {q:"10. Qaysi kasb sizga yaqin?", a:[{t:"Animator",v:"i"},{t:"Muhandis",v:"t"},{t:"O‘qituvchi",v:"j"}]},
-    {q:"11. Qaysi topshiriq sizga qiziqarli?", a:[{t:"Loyiha dizayni",v:"i"},{t:"Texnik yechim",v:"t"},{t:"Jamiyat bilan ishlash",v:"j"}]},
-    {q:"12. Sizga qaysi narsa yoqadi?", a:[{t:"Yaratish",v:"i"},{t:"Tuzatish",v:"t"},{t:"Yordam berish",v:"j"}]},
-    {q:"13. Sizning kuchli tomonlaringiz?", a:[{t:"Tasavvur",v:"i"},{t:"Aniqlik",v:"t"},{t:"Muomala",v:"j"}]},
-    {q:"14. Qaysi faoliyat sizni rag‘batlantiradi?", a:[{t:"Yangi g‘oya",v:"i"},{t:"Natija",v:"t"},{t:"Minnatdorchilik",v:"j"}]},
-    {q:"15. Siz qaysi ishni kelajakda xohlaysiz?", a:[{t:"Ijodiy kasb",v:"i"},{t:"Texnik kasb",v:"t"},{t:"Ijtimoiy kasb",v:"j"}]},
-    {q:"16. Qaysi ish sizni o‘zingizga yaqin his qilasiz?", a:[{t:"San’at",v:"i"},{t:"Mexanika",v:"t"},{t:"Pedagogika",v:"j"}]},
-    {q:"17. Qaysi ish sizga ko‘proq yoqadi?", a:[{t:"Rasm",v:"i"},{t:"Kod",v:"t"},{t:"Suhbat",v:"j"}]},
-    {q:"18. Qaysi yo‘nalishda ko‘proq muvaffaqiyat qozonasiz?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Ijtimoiy",v:"j"}]},
-    {q:"19. Qaysi ishda o‘zingizni kuchli his qilasiz?", a:[{t:"Ijodda",v:"i"},{t:"Texnikada",v:"t"},{t:"Muloqotda",v:"j"}]},
-    {q:"20. Kelajakda qaysi kasb sizga mos?", a:[{t:"Dizayner",v:"i"},{t:"Dasturchi",v:"t"},{t:"Psixolog",v:"j"}]}
-  ],
-
-  11: [
-    {q:"1. Sizga qaysi yo‘nalish ko‘proq mos?", a:[{t:"Reklama/ dizayn",v:"i"},{t:"IT/ muhandislik",v:"t"},{t:"Psixologiya/ sotsiologiya",v:"j"}]},
-    {q:"2. Bo‘sh vaqtingizda nima qilasiz?", a:[{t:"Rasm/ video",v:"i"},{t:"Texnik loyihalar",v:"t"},{t:"Do‘stlar bilan suhbat",v:"j"}]},
-    {q:"3. Qaysi fan sizga eng yoqadi?", a:[{t:"Adabiyot",v:"i"},{t:"Matematika",v:"t"},{t:"Falsafa",v:"j"}]},
-    {q:"4. Qaysi ish sizni ko‘proq qoniqtiradi?", a:[{t:"Ijodiy natija",v:"i"},{t:"Mukammal tizim",v:"t"},{t:"Odamlarga yordam",v:"j"}]},
-    {q:"5. Guruhda siz odatda?", a:[{t:"Ijodiy g‘oya",v:"i"},{t:"Reja va tartib",v:"t"},{t:"Barchani birlashtiraman",v:"j"}]},
-    {q:"6. Qaysi muhitda o‘zingizni qulay his qilasiz?", a:[{t:"Erkin",v:"i"},{t:"Texnik",v:"t"},{t:"Jamoaviy",v:"j"}]},
-    {q:"7. Qaysi ish sizni kamroq charchatadi?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Muloqot",v:"j"}]},
-    {q:"8. Sizni qaysi kasb qiziqtiradi?", a:[{t:"Dizayner",v:"i"},{t:"Muhandis",v:"t"},{t:"O‘qituvchi",v:"j"}]},
-    {q:"9. Qaysi narsa sizni ko‘proq rag‘batlantiradi?", a:[{t:"Yangi g‘oya",v:"i"},{t:"Natija",v:"t"},{t:"Minnatdorchilik",v:"j"}]},
-    {q:"10. Qaysi ish sizga eng oson?", a:[{t:"Yaratish",v:"i"},{t:"Tuzatish",v:"t"},{t:"Yordam berish",v:"j"}]},
-    {q:"11. Sizni ko‘proq nima qiziqtiradi?", a:[{t:"San’at va dizayn",v:"i"},{t:"IT va mexanika",v:"t"},{t:"Insonlar va psixologiya",v:"j"}]},
-    {q:"12. Kelajakda qaysi sohada ishlashni xohlaysiz?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Ijtimoiy",v:"j"}]},
-    {q:"13. Qaysi ishda muvaffaqiyat qozonasiz?", a:[{t:"Ijodiy loyiha",v:"i"},{t:"Texnik yechim",v:"t"},{t:"Jamiyat bilan ishlash",v:"j"}]},
-    {q:"14. Qaysi fan sizga ko‘proq mos?", a:[{t:"Tasviriy san’at",v:"i"},{t:"Fizika",v:"t"},{t:"Psixologiya",v:"j"}]},
-    {q:"15. Sizni qaysi faoliyat xursand qiladi?", a:[{t:"Rassomlik",v:"i"},{t:"Dasturlash",v:"t"},{t:"Odamlarga yordam",v:"j"}]},
-    {q:"16. Qaysi ish sizni ko‘proq hayajonlantiradi?", a:[{t:"Yangi loyiha",v:"i"},{t:"Yangi texnologiya",v:"t"},{t:"Yangi odamlar bilan tanishish",v:"j"}]},
-    {q:"17. Qaysi ish sizga mos?", a:[{t:"Grafik dizayn",v:"i"},{t:"Muhandislik",v:"t"},{t:"Ta’lim",v:"j"}]},
-    {q:"18. Qaysi ish sizga ko‘proq yoqadi?", a:[{t:"Ijodiy",v:"i"},{t:"Texnik",v:"t"},{t:"Muloqot",v:"j"}]},
-    {q:"19. Qaysi ish sizni tinchlantiradi?", a:[{t:"San’at",v:"i"},{t:"Texnik ish",v:"t"},{t:"Do‘stlar bilan suhbat",v:"j"}]},
-    {q:"20. Sizni eng ko‘p nima motivatsiya qiladi?", a:[{t:"Ijodiy erkinlik",v:"i"},{t:"Natija",v:"t"},{t:"Odamlarga yordam",v:"j"}]}
-  ]
-};
-
-function goMenu(){
- document.getElementById("start").classList.add("hidden");
- document.getElementById("menu").classList.remove("hidden");
+function showGrades(){
+    document.getElementById('start').style.display = "none";
+    document.getElementById('grades').style.display = "block";
 }
 
-function startTest(cls){
- document.getElementById("menu").classList.add("hidden");
- const t=document.getElementById("test");
- t.innerHTML="";
- tests[cls].forEach((q,i)=>{
-   t.innerHTML+=`
-   <div class="box">
-     <b>${q.q}</b>
-     ${q.a.map(a=>`
-       <label>
-         <input type="radio" name="q${i}" value="${a.v}">
-         ${a.t}
-       </label>`).join("")}
-   </div>`;
- });
- t.innerHTML+=`<button onclick="finish()">Yakunlash</button>`;
- t.classList.remove("hidden");
+function startTest(grade){
+    currentGrade = grade;
+    currentQuestion = 0;
+    scores = {ilmiy:0, ijodiy:0, jismoniy:0};
+    document.getElementById('grades').style.display = "none";
+    document.getElementById('quiz').style.display = "block";
+    document.getElementById('result').style.display = "none";
+    showQuestion();
 }
 
-function finish(){
- let s={i:0,t:0,j:0};
- document.querySelectorAll("input:checked").forEach(i=>s[i.value]++);
- let res =
-   s.i>=s.t && s.i>=s.j ? "🟢 Siz IJODIY kasblarga mos" :
-   s.t>=s.i && s.t>=s.j ? "🔵 Siz TEXNIK kasblarga mos" :
-   "🟠 Siz IJTIMOIY kasblarga mos";
- document.getElementById("test").classList.add("hidden");
- const r=document.getElementById("result");
- r.innerHTML=res+"<br><br><button onclick='location.reload()'>Qayta boshlash</button>";
- r.classList.remove("hidden");
+function showQuestion(){
+    const quizDiv = document.getElementById('quiz');
+    const question = allQuestions[currentGrade][currentQuestion];
+    let html = `<div class="question"><h2>${question.q}</h2></div><div class="options">`;
+    question.options.forEach((opt, index)=>{
+        html += `<button onclick="answer('${question.type[index]}')">${opt}</button>`;
+    });
+    html += `</div>`;
+    quizDiv.innerHTML = html;
+}
+
+function answer(type){
+    scores[type]++;
+    currentQuestion++;
+    if(currentQuestion < allQuestions[currentGrade].length){
+        showQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult(){
+    document.getElementById('quiz').style.display = "none";
+    const resultDiv = document.getElementById('result');
+    let max = Math.max(scores.ilmiy, scores.ijodiy, scores.jismoniy);
+    let career = "";
+    if(max === scores.ilmiy) career = "Siz ilm-fan va texnika yo‘nalishlariga mos kelasiz.";
+    else if(max === scores.ijodiy) career = "Siz ijodiy va san’at yo‘nalishlariga mos kelasiz.";
+    else career = "Siz sport va jismoniy faoliyat yo‘nalishlariga mos kelasiz.";
+    resultDiv.innerHTML = `<h2>Natija:</h2><p>${career}</p><button class="button" onclick="showGrades()">Bosh sahifaga qaytish</button>`;
+    resultDiv.style.display = "block";
 }
 </script>
-
 </body>
 </html>
