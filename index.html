@@ -1,369 +1,247 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <style>
-/* === BOSH DIZAYN === */
-.header{
-    background: linear-gradient(135deg,#2563eb,#1e40af);
-    color:#fff;
-    padding:45px 20px;
-    text-align:center;
-    border-radius:0 0 35px 35px;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
-
-.header h1{
-    margin:0;
-    font-size:34px;
-    letter-spacing:1px;
-}
-
-.header p{
-    margin-top:12px;
-    font-size:18px;
-    opacity:.9;
-}
-
-.start-box{
-    background:#fff;
-    max-width:700px;
-    margin:-35px auto 30px auto;
-    padding:30px;
-    border-radius:22px;
-    text-align:center;
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
-}
-
-.start-btn{
-    background:#22c55e;
-    color:#fff;
-    border:none;
-    padding:14px 34px;
-    font-size:18px;
-    border-radius:14px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.start-btn:hover{
-    transform:scale(1.08);
-    background:#16a34a;
-}
-
-@media(max-width:600px){
-    .header h1{font-size:26px}
-    .header p{font-size:16px}
-}
-</style>
-<style>
-/* === MUALLIF YOZUVI DIZAYNI === */
-.author-badge{
-    display:inline-block;
-    margin-bottom:18px;
-    padding:10px 22px;
-    background:linear-gradient(135deg,#f59e0b,#ef4444);
-    color:#fff;
-    font-weight:600;
-    font-size:16px;
-    border-radius:30px;
-    box-shadow:0 8px 20px rgba(0,0,0,.25);
-    letter-spacing:0.5px;
-    animation:pulse 2s infinite;
-}
-
-/* yengil animatsiya */
-@keyframes pulse{
-    0%{transform:scale(1)}
-    50%{transform:scale(1.05)}
-    100%{transform:scale(1)}
-}
-</style>
-
 <meta charset="UTF-8">
-<title>Psixologik va Kasb-Hunar Test</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maktab Test Tizimi</title>
 <style>
-body{
-    font-family: Arial, sans-serif;
-    background:#f2f6ff;
-    margin:0;
-}
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-}
-h1,h2{text-align:center;}
-button{
-    padding:12px 25px;
-    margin:8px;
-    font-size:16px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    background:#2196F3;
-    color:white;
-}
-.start-btn{background:#4CAF50;}
-.question{
-    background:white;
-    padding:15px;
-    margin:15px 0;
-    border-radius:10px;
-}
-.result{
-    background:#e8f5e9;
-    padding:20px;
-    border-radius:10px;
-    font-size:18px;
-    margin-top:20px;
+body{margin:0;font-family:Arial;background:#0f2027;color:#fff}
+section{display:none;padding:20px}
+.active{display:block}
+.topbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+button{padding:10px 18px;border:none;border-radius:8px;cursor:pointer;margin:5px}
+input,select,textarea{padding:8px;margin:5px;border-radius:6px;border:none;width:95%}
+.card{background:#203a43;padding:12px;border-radius:10px;margin:8px 0;word-wrap:break-word;}
+.big-red{background:red;font-size:22px;padding:18px;width:100%;color:white;margin-top:20px}
+.test-box{max-height:60vh;overflow-y:auto;background:#203a43;padding:15px;border-radius:10px}
+.answer-btn{margin-right:10px;margin-top:5px}
+@media(max-width:600px){
+button, .answer-btn{width:100%;margin:5px 0}
+input,select,textarea{width:100%}
+.topbar{flex-direction:column;align-items:flex-start}
+.big-red{font-size:20px}
 }
 </style>
 </head>
+<link rel="stylesheet" href="style.css">
 
 <body>
-  <!-- === BOSH QISM === -->
-<div class="header">
-    <h1>Psixologik va Kasb-Hunar Test</h1>
-    <p>6–11 sinf o‘quvchilari uchun professional test</p>
+
+<section id="start" class="active">
+<h1>Boshlash</h1>
+<button onclick="go('school')">Boshlash</button>
+</section>
+
+<section id="school">
+<h2>Maktab nomi</h2>
+<input id="schoolName" placeholder="Masalan: 34-maktab">
+<button onclick="saveSchool()">Davom etish</button>
+</section>
+
+<section id="classes">
+<div class="topbar">
+<h2>Sinflar</h2>
+<button onclick="go('add')">➕ O‘quvchi qo‘shish</button>
 </div>
-<div class="start-box">
+<div id="classList"></div>
+<button class="big-red" onclick="startTest()">TESTNI BOSHLASH</button>
+</section>
 
-    <div class="author-badge">
-        Xamroyev Abror tomonidan tuzilgan
-    </div>
+<section id="add">
+<h2>O‘quvchi qo‘shish</h2>
+<input id="ism" placeholder="Ism">
+<input id="fam" placeholder="Familiya"><br>
+<select id="sinf">
+<option>6</option><option>7</option><option>8</option>
+<option>9</option><option>10</option><option>11</option>
+</select>
+<select id="harf">
+<option>A</option><option>B</option><option>D</option>
+</select><br>
+<button onclick="addStudent()">Saqlash</button>
+<button onclick="go('classes')">⬅ Orqaga</button>
+</section>
 
-    <button class="start-btn" onclick="showGrades()">
-        Boshlash
-    </button>
+<section id="students">
+<h2>O‘quvchini tanlang</h2>
+<div id="studentList"></div>
+</section>
 
-</div>
+<section id="test">
+<h2 id="testTitle"></h2>
+<div class="test-box" id="allQuestions"></div>
+<button class="big-red" onclick="finishTest()">Testni Tugatish</button>
+</section>
 
-<div class="start-box">
-    <button class="start-btn" onclick="showGrades()">Boshlash</button>
-</div>
+<section id="login">
+<h2>ID kiriting</h2>
+<input id="adminInput" placeholder="ID">
+<button onclick="checkID()">Kirish</button>
+</section>
 
-
-<div class="container">
-
-<div style="text-align:center;">
-</div>
-
-<div id="grades" style="display:none; text-align:center;">
-    <h2>Sinfni tanlang</h2>
-    <button onclick="loadTest(6)">6-sinf</button>
-    <button onclick="loadTest(7)">7-sinf</button>
-    <button onclick="loadTest(8)">8-sinf</button>
-    <button onclick="loadTest(9)">9-sinf</button>
-    <button onclick="loadTest(10)">10-sinf</button>
-    <button onclick="loadTest(11)">11-sinf</button>
-</div>
-
-<div id="test"></div>
-<div id="finalResult"></div>
-
-</div>
+<section id="results">
+<h2>Natijalar</h2>
+<div id="resultBox"></div>
+</section>
 
 <script>
-function showGrades(){
-    document.getElementById("grades").style.display="block";
+const SECRET_ID = "Abror 13";
+let db = JSON.parse(localStorage.getItem("db")) || {};
+let currentStudent = null;
+let currentClass = "";
+
+// 20 savol, uzun va batafsil
+const questions = [
+"Siz texnologiyalarni chuqur o‘rganishni xohlaysizmi? Misol uchun robototexnika, dasturlash yoki kompyuter tizimlari.",
+"Murakkab masalalarni hal qilish sizga yoqadimi? Logik muammolar va algoritmlarni yechish.",
+"Kompyuter bilan ishlashdan zavqlanasizmi? Dasturiy ta'minot va ilovalarni yaratish.",
+"Dasturlashni o‘rganishga qiziqasizmi? Web, mobil yoki o‘yinlar dasturlash.",
+"Texnik muammolarni tuzatishni yoqtirasizmi? Masalan, kompyuter yoki elektron qurilmalarni ta'mirlash.",
+"Mustaqil ishlash sizga qulaymi? O‘z vaqtida va o‘z nazoratingiz bilan ishlash.",
+"Mantiqiy fikrlashni yoqtirasizmi? Muammolarni tizimli va izchil yechish.",
+"Yangi bilimlarni tez o‘zlashtirasizmi? Kitoblar, onlayn kurslar va tajriba orqali.",
+"Matematikaga qiziqasizmi? Sonlar, formula va hisoblash muammolari.",
+"Texnika sizni qiziqtiradimi? Elektronika, mexanika va robototexnika.",
+"Odamlarga yordam berishni xohlaysizmi? Psixologiya, tibbiyot yoki jamiyat xizmatlari.",
+"Jamoada ishlash sizga yoqadimi? Loyihalar va guruh ishlarida qatnashish.",
+"Tibbiyot sizni qiziqtiradimi? Shifokor, hamshira, laboratoriya ishlariga qiziqish.",
+"Stressga chidamlisizmi? Murakkab vaziyatlarda barqaror bo‘lish.",
+"Sport bilan shug‘ullanishni xohlaysizmi? Fiziologiya, trenerlik va sog‘lom turmush.",
+"Tez qaror qabul qila olasizmi? Rahbarlik, menejment yoki tadbirkorlik.",
+"Biologiya yoqadimi? Tabiyat, hayvonot va o‘simliklar haqida.",
+"Diqqatni uzoq jamlay olasizmi? Tadqiqot, ilmiy ishlar yoki murakkab loyihalar.",
+"Mas’uliyatni o‘z zimmangizga olasizmi? Rahbarlik yoki muhim qarorlar qabul qilish.",
+"Kelajak kasbingiz haqida o‘ylaganmisiz? O‘z qiziqishlaringiz va kuchli tomonlaringiz."
+];
+
+function go(id){
+document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 }
 
-// 🔹 HAR SINFGA ALOHIDA 20 TA SAVOL
-const allQuestions = {
-6: [
-"Rasm chizishni yoqtirasizmi?",
-"O‘yin orqali o‘rganishni yoqtirasizmi?",
-"Do‘stlaringizga yordam berasizmi?",
-"O‘qituvchini diqqat bilan tinglaysizmi?",
-"Ertak o‘qishni yoqtirasizmi?",
-"Jamoada o‘ynash sizga yoqadimi?",
-"Qo‘l mehnatini yoqtirasizmi?",
-"Sport bilan shug‘ullanasizmi?",
-"Hayvonlarni yaxshi ko‘rasizmi?",
-"Yangi do‘st orttirishni xohlaysizmi?",
-"Qoidalarni bajarishga harakat qilasizmi?",
-"Uy yumushlarida yordam berasizmi?",
-"Sabrli bo‘la olasizmi?",
-"Texnika buyumlariga qiziqasizmi?",
-"Masalalarni yechishni yoqtirasizmi?",
-"She’r yodlash sizga yoqadimi?",
-"O‘z fikringizni ayta olasizmi?",
-"Tabiatni asrash kerak deb o‘ylaysizmi?",
-"Yangi narsalarni tez o‘rganasizmi?",
-"Kelajakda kim bo‘lishni o‘ylaysizmi?"
-],
+function saveSchool(){
+let s = schoolName.value.trim();
+if(!s) return alert("Maktab nomini yoz");
+localStorage.setItem("school", s);
+if(!db[s]) db[s] = {};
+save();
+loadClasses();
+go('classes');
+}
 
-7: [
-"Mustaqil qaror qabul qila olasizmi?",
-"Yangi bilimlarga qiziqasizmi?",
-"Do‘stlaringiz bilan ishlashni yoqtirasizmi?",
-"Kompyuter bilan ishlash yoqadimi?",
-"Sport musobaqalarida qatnashasizmi?",
-"Mas’uliyatni sezib ishlaysizmi?",
-"Chizmachilik yoki dizayn yoqadimi?",
-"Texnika tuzatishga qiziqasizmi?",
-"Odamlarga yordam berishni xohlaysizmi?",
-"Kitob o‘qishni yoqtirasizmi?",
-"Reja asosida ishlaysizmi?",
-"Muammoni mustaqil hal qila olasizmi?",
-"Rahbar bo‘lishni xohlaysizmi?",
-"Sahna yoki nutq so‘zlash yoqadimi?",
-"Hisob-kitobni yaxshi ko‘rasizmi?",
-"Tabiat fanlariga qiziqasizmi?",
-"Yangi g‘oyalar o‘ylab topasizmi?",
-"Jamoada yetakchi bo‘la olasizmi?",
-"Sabrli va matonatlimisiz?",
-"Kasb tanlash haqida o‘ylaysizmi?"
-],
+function addStudent(){
+let s = localStorage.getItem("school");
+let key = sinf.value + "-" + harf.value;
+if(!db[s][key]) db[s][key] = [];
+db[s][key].push({ism:ism.value,fam:fam.value,done:false,answers:[]});
+save();
+alert("Qo‘shildi");
+ism.value=""; fam.value="";
+loadClasses();
+}
 
-8: [
-"O‘z oldingizga maqsad qo‘ya olasizmi?",
-"Fanlarga jiddiy yondashasizmi?",
-"Kompyuter texnologiyalari sizni qiziqtiradimi?",
-"Muammolarni tahlil qila olasizmi?",
-"Yetakchilik qobiliyatingiz bormi?",
-"Ijodiy ishlarni yoqtirasizmi?",
-"Odamlar bilan muloqot qilish osonmi?",
-"Texnika bilan ishlash yoqadimi?",
-"Mas’uliyatli ishlarni bajara olasizmi?",
-"Sport yoki san’at bilan shug‘ullanasizmi?",
-"Reja tuzib ishlaysizmi?",
-"Maslahat berishni yoqtirasizmi?",
-"Hisob-kitob aniq chiqadimi?",
-"Yangiliklarga qiziqasizmi?",
-"Kasb haqida mustaqil izlanasizmi?",
-"Jamoada ishlash sizga yoqadimi?",
-"Qiyinchilikdan qo‘rqmaysizmi?",
-"Ilmiy ishlar sizni qiziqtiradimi?",
-"Vaqtni to‘g‘ri taqsimlaysizmi?",
-"Kelajak rejalaringiz aniqmi?"
-],
+function loadClasses(){
+let s = localStorage.getItem("school");
+classList.innerHTML="";
+for(let c in db[s]){
+classList.innerHTML += `<div class="card"><b>${c}</b> — ${db[s][c].length} o‘quvchi</div>`;
+}
+}
 
-9: [
-"Kasbingizni tanlashga tayyormisiz?",
-"Mustaqil ishlashni yoqtirasizmi?",
-"Texnik kasblar sizni qiziqtiradimi?",
-"Ijodiy fikrlaysizmi?",
-"Odamlar bilan ishlash osonmi?",
-"Mas’uliyatli qaror qabul qila olasizmi?",
-"Kompyuter bilimlaringiz yaxshimi?",
-"Tahliliy fikrlaysizmi?",
-"Rahbar bo‘lishni xohlaysizmi?",
-"Ijtimoiy faolmisiz?",
-"Reja asosida harakat qilasizmi?",
-"Stressga bardosh bera olasizmi?",
-"Hisob-kitobga e’tiborlimisiz?",
-"Texnika bilan ishlash yoqadimi?",
-"Kasb haqida ma’lumot yig‘asizmi?",
-"Jamoada ishlash muhim deb o‘ylaysizmi?",
-"Yangi g‘oyalar yaratishni xohlaysizmi?",
-"O‘zingizga ishonasizmi?",
-"Mehnatsevarmisiz?",
-"Kelajakda oliy ta’limni xohlaysizmi?"
-],
+function startTest(){
+let s = localStorage.getItem("school");
+studentList.innerHTML="";
+for(let c in db[s]){
+db[s][c].forEach(st=>{
+if(!st.done){
+let b=document.createElement("button");
+b.textContent=`${st.ism} ${st.fam} (${c})`;
+b.onclick=()=>selectStudent(st,c);
+studentList.appendChild(b);
+}
+});
+}
+go('students');
+}
 
-10: [
-"Kasb tanlashingiz aniqmi?",
-"Oliy ta’limga tayyorgarlik ko‘ryapsizmi?",
-"Fanlarni chuqur o‘rganasizmi?",
-"Texnologiya sohasiga qiziqasizmi?",
-"Yetakchilik qobiliyatingiz bormi?",
-"Ijodiy fikrlaysizmi?",
-"Mas’uliyatni to‘liq ola olasizmi?",
-"Muammolarni tez hal qila olasizmi?",
-"Kompyuterda erkin ishlaysizmi?",
-"Jamoani boshqara olasizmi?",
-"Biznes haqida o‘ylaysizmi?",
-"Odamlar bilan muloqot osonmi?",
-"Stressli vaziyatda ishlay olasizmi?",
-"Analitik fikrlaysizmi?",
-"Reja asosida ishlaysizmi?",
-"Kasbingizni rivojlantirishni xohlaysizmi?",
-"Yangiliklarni kuzatasizmi?",
-"O‘z ustingizda ishlaysizmi?",
-"Mehnatsevarmisiz?",
-"Maqsadingiz aniqmi?"
-],
+function selectStudent(st,c){
+currentStudent = st;
+currentClass = c;
+showAllQuestions();
+go('test');
+}
 
-11: [
-"Kasbingizni aniq tanlaganmisiz?",
-"Oliy ta’lim yoki kasb-hunar rejangiz bormi?",
-"Mas’uliyatli qaror qabul qila olasizmi?",
-"Yetakchilik tajribangiz bormi?",
-"Muammolarni tahlil qila olasizmi?",
-"Texnologiya va innovatsiya sizni qiziqtiradimi?",
-"Biznes yuritishga qiziqasizmi?",
-"Odamlar bilan ishlash osonmi?",
-"Stressga chidamlilik bormi?",
-"Mustaqil ishlay olasizmi?",
-"Analitik fikrlaysizmi?",
-"Ijodiy yondashuv bormi?",
-"Kasbingizni rivojlantirishni xohlaysizmi?",
-"Jamiyatga foyda keltirishni xohlaysizmi?",
-"Vaqtni samarali boshqarasizmi?",
-"Ma’suliyatni to‘liq ola olasizmi?",
-"O‘z ustingizda ishlaysizmi?",
-"Yangi bilimlarga ochiqmisiz?",
-"Qiyinchiliklardan qo‘rqmaysizmi?",
-"Kelajagingizga ishonasizmi?"
-]
+function showAllQuestions(){
+const container = document.getElementById("allQuestions");
+container.innerHTML = "";
+questions.forEach((q,i)=>{
+let div = document.createElement("div");
+div.className="card";
+let p = document.createElement("p");
+p.innerText = q;
+div.appendChild(p);
+let btns = document.createElement("div");
+["Ha","Yo‘q","Bilmayman"].forEach(a=>{
+let b = document.createElement("button");
+b.className="answer-btn";
+b.textContent = a;
+b.onclick = ()=>{
+currentStudent.answers[i]=a;
+b.disabled=true;
 };
-
-function loadTest(sinf){
-    document.getElementById("test").innerHTML="";
-    document.getElementById("finalResult").innerHTML="";
-
-    let html = `<h2>${sinf}-sinf uchun test</h2><form id="testForm">`;
-
-    allQuestions[sinf].forEach((q,i)=>{
-        html += `
-        <div class="question">
-            <p>${i+1}. ${q}</p>
-            <label><input type="radio" name="q${i}" value="1"> Yo‘q</label><br>
-            <label><input type="radio" name="q${i}" value="2"> Ba’zan</label><br>
-            <label><input type="radio" name="q${i}" value="3"> Ha</label>
-        </div>`;
-    });
-
-    html += `
-    </form>
-    <div style="text-align:center;">
-        <button class="start-btn" onclick="finishTest()">Yakunlash</button>
-    </div>`;
-
-    document.getElementById("test").innerHTML = html;
-    document.getElementById("test").scrollIntoView({behavior:"smooth"});
+btns.appendChild(b);
+});
+div.appendChild(btns);
+container.appendChild(div);
+});
 }
 
 function finishTest(){
-    let score=0;
+currentStudent.done = true;
+save();
+alert("Test tugadi! Natijani ko‘rish uchun ID bilan kiring.");
+go('login');
+}
 
-    for(let i=0;i<20;i++){
-        let ans=document.querySelector(`input[name="q${i}"]:checked`);
-        if(!ans){
-            alert("Hamma savollarga javob bering!");
-            return;
-        }
-        score+=parseInt(ans.value);
-    }
+function checkID(){
+if(adminInput.value === SECRET_ID){
+showResults();
+go('results');
+}else{
+alert("ID noto‘g‘ri");
+}
+}
 
-    let xulosa="";
-    if(score<=30){
-        xulosa="🔴 Amaliy kasblar: quruvchi, mexanik, oshpaz.";
-    }else if(score<=40){
-        xulosa="🟡 Ijodiy yo‘nalish: dizayner, rassom.";
-    }else if(score<=50){
-        xulosa="🟢 Ijtimoiy soha: o‘qituvchi, psixolog, shifokor.";
-    }else if(score<=55){
-        xulosa="🔵 Texnik yo‘nalish: dasturchi, muhandis.";
-    }else{
-        xulosa="🟣 Rahbarlik va biznes: menejer, tadbirkor.";
-    }
+function showResults(){
+resultBox.innerHTML="";
+let s = localStorage.getItem("school");
+if(!db[s]) return alert("Hech kim hali test topshirmagan");
+for(let c in db[s]){
+db[s][c].forEach(st=>{
+let xulosa = calculateCareer(st.answers);
+resultBox.innerHTML += `
+<div class="card">
+<b>${c}</b><br>
+${st.ism} ${st.fam}<br>
+Javoblar (${st.answers.length}/20):<br>${st.answers.join(", ")}<br>
+<b>Xulosa:</b> ${xulosa}
+</div>`;
+});
+}
+}
 
-    document.getElementById("finalResult").innerHTML =
-        `<div class="result"><b>Natija:</b><br>${xulosa}</div>`;
-    document.getElementById("finalResult").scrollIntoView({behavior:"smooth"});
+function calculateCareer(ans){
+let tech = ans.slice(0,10).filter(a=>"Ha"===a).length;
+let social = ans.slice(10,15).filter(a=>"Ha"===a).length;
+let science = ans.slice(15,20).filter(a=>"Ha"===a).length;
+if(tech>=5) return "Texnologiya va dasturlashga qiziqadi";
+if(social>=3) return "Jamiyat va odamlar bilan ishlashga qiziqadi";
+if(science>=3) return "Tabiat, biologiya va ilmiy ishlar qiziqtiradi";
+return "Turli sohalarga qiziqishi bor";
+}
+
+function save(){
+localStorage.setItem("db", JSON.stringify(db));
 }
 </script>
 
